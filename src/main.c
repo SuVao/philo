@@ -89,9 +89,16 @@
 // 	return (0);
 // }
 
-int is_digit(char c)
+t_philo	*main_philo(void)
 {
-	return (c <= '9' || c >= '0');
+	static t_philo philo;
+	return (&philo);
+}
+
+t_table	*main_table(void)
+{
+	static t_table	table;
+	return (&table);
 }
 
 int check_args(char **av)
@@ -114,30 +121,60 @@ int check_args(char **av)
 	return (0);
 }
 
-
-void	init_philo(char **av, t_philo *philo)
+void	init_philo(char **av)
 {
 	if (check_args(av) == 1)
 	{
 		printf("Error: wrong arguments\n");
 		return ;
 	}
-	philo->nr_philo = ft_atol(av[1]);
+	main_philo()->nr_philo = ft_atol(av[1]);
+}
+
+void	lets_the_party_begins(void)
+{
+
+}
+
+void	puting_the_forks_on_the_table(void)
+{
+	int i;
+
+	i = 0;
+	while (main_philo()->nr_philo > i)
+	{
+
+	}
+}
+
+void	init_philo_opc(char **av)
+{
+	if (check_args(av) == 1)
+	{
+		printf("Error: wrong arguments\n");
+		return ;
+	}
+	main_philo()->nr_philo = ft_atol(av[1]);
+	main_table()->time_to_die = ft_atol(av[2]);
+	main_table()->time_to_eat = ft_atol(av[3]);
+	main_table()->time_to_sleep = ft_atol(av[4]);
+	main_table()->nb_of_meals = ft_atol(av[5]);
+	printf("nr philos: %ld\n", main_philo()->nr_philo);
+	printf("nr philos: %ld\n", main_table()->time_to_die);
+	printf("nr philos: %ld\n", main_table()->time_to_eat);
+	printf("nr philos: %ld\n", main_table()->time_to_sleep);
+	printf("nr philos: %ld\n", main_table()->nb_of_meals);
+	puting_the_forks_on_the_table();
+
+	//lets_the_party_begins();
 }
 
 int main(int ac, char **av)
 {
-	t_philo	*philo;
-
-	philo = NULL;
 	if (ac == 6)
-	{
-		init_philo(av, philo);
-	}
-	// else if (ac == 5)
-	// {
-	// 	init_philo_opc(av, philo);
-	// }
+		init_philo_opc(av);
+	else if (ac == 5)
+		init_philo(av)	;
 	else
 	{
 		printf("Error: wrong number of arguments\n");
