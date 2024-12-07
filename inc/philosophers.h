@@ -22,7 +22,6 @@ typedef struct s_philo
 	long			last_meal;
 	long			meal_count;
 	int				nb_of_meals;
-	long			nr_philo;
 	t_fork			*left_fork;
 	t_fork			*right_fork;
 	pthread_t		thread_id;
@@ -40,8 +39,14 @@ typedef struct s_table
 	t_philo			*philos;
 }				t_table;
 
-int ft_atol(char *s);
+long ft_atol(char *s);
 int is_digit(char c);
-
+t_philo	*philo(void);
+t_table	*table(void);
+void	washing_dishes();
+void	kickoff_the_clients(void);
+int check_args(char **av);
+void	print_philo_data(long i);
+void	init_table(char **av);
 
 #endif

@@ -5,7 +5,7 @@ int is_digit(char c)
 	return (c <= '9' || c >= '0');
 }
 
-int ft_atol(char *s)
+long ft_atol(char *s)
 {
 	int	i;
 	int sign;
