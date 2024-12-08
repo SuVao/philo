@@ -37,6 +37,7 @@ typedef struct s_table
 	long			nb_of_meals;
 	t_fork			*forks;
 	t_philo			*philos;
+	int				shared_fork;
 }				t_table;
 
 long ft_atol(char *s);
@@ -48,5 +49,23 @@ void	kickoff_the_clients(void);
 int check_args(char **av);
 void	print_philo_data(long i);
 void	init_table(char **av);
+void	init_philo(char **av);
+t_philo	create_philo(t_philo *philos, long i);
+t_fork	create_forks(t_fork *forks_table, long i);
+void	puting_the_forks_on_the_table(void);
+void	seating_the_gentlemans(void);
+void	ft_create_thread(void);
+void	ft_lock_threads(void);
+void	ft_unlock_threads(void);
+void	ft_thread_join(void);
+void	*dog_life();
+void	table_for_pair_philos(long i);
+void	table_for_odd_philos(long i);
+void	ft_lock_fork_for_pair(long i);
+void	ft_unlock_fork_for_pair(long i);
+void	ft_lock_fork_for_odd(long i);
+void	ft_unlock_fork_for_odd(long i);
+void	ft_check_philo_nr(void);
+void	ft_check_time(void);
 
 #endif

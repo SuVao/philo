@@ -28,13 +28,32 @@ void	print_philo_data(long i)
 	printf("philo thread_id: %lu\n", table()->philos[i].thread_id);
 }
 
+void	ft_check_philo_nr(void)
+{
+	if (table()->nr_philo == 1)
+	{
+		printf("the philo is dead\n");
+		exit(1);
+	}
+	else if (table()->nr_philo < 1)
+	{
+		printf("Invalid nunber of philos\n");
+		exit(1);
+	}
+}
+
 void	init_table(char **av)
 {
 	table()->nr_philo = ft_atol(av[1]);
+	ft_check_philo_nr();
 	table()->time_to_die = ft_atol(av[2]);
 	table()->time_to_eat = ft_atol(av[3]);
 	table()->time_to_sleep = ft_atol(av[4]);
-	table()->nb_of_meals = ft_atol(av[5]);
+	ft_check_time();
+	if (av[5] == NULL)
+		table()->nb_of_meals = LLONG_MAX;
+	else
+		table()->nb_of_meals = ft_atol(av[5]);
 	printf("nr philos: %ld\n", table()->nr_philo);
 	printf("time to die: %ld\n", table()->time_to_die);
 	printf("time to eat: %ld\n", table()->time_to_eat);

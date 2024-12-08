@@ -1,5 +1,6 @@
 
 #include "../inc/philosophers.h"
+#include <pthread.h>
 
 t_philo	*philo(void)
 {
@@ -15,6 +16,14 @@ t_table	*table(void)
 
 void	washing_dishes()
 {
+	int i;
+
+	i = 0;
+	while (i < table()->nr_philo)
+	{
+		pthread_mutex_destroy(&table()->forks[i].fork);
+		i++;
+	}
 	if (table()->forks)
 	{
 		free(table()->forks);

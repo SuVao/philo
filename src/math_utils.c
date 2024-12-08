@@ -14,12 +14,12 @@ long ft_atol(char *s)
 	i = 0;
 	sign = 1;
 	res = 0;
-	while ((s[i] < 32))
+	while (s[i] == 32 || (s[i] >= 9 && s[i] <= 13))
 		i++;
 	if (s[i] == '-' || s[i] == '+')
 	{
-		if (sign == '-')
-			sign = -1;
+		if (s[i] == '-')
+			sign *= -1;
 		i++;
 	}
 	while (s[i] >= '0' && s[i] <= '9')

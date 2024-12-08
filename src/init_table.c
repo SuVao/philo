@@ -10,11 +10,6 @@ void	init_philo(char **av)
 	table()->nr_philo = ft_atol(av[1]);
 }
 
-void	lets_the_party_begins(void)
-{
-
-}
-
 t_philo	create_philo(t_philo *philos, long i)
 {
 	philos[i].philo_id = i;
@@ -24,11 +19,11 @@ t_philo	create_philo(t_philo *philos, long i)
 	return (philos[i]);
 }
 
-
 t_fork	create_forks(t_fork *forks_table, long i)
 {
 	forks_table[i].fork_id = i;
 	pthread_mutex_init(&forks_table[i].fork, NULL);
+	printf("fork is in use: %ld\n", i);
 	return (forks_table[i]);
 }
 
@@ -45,18 +40,18 @@ void	puting_the_forks_on_the_table(void)
 	while (i < table()->nr_philo)
 	{
 		forks_table[i] = create_forks(forks_table, i);
-		printf("Fork %ld created\n", i);
+	//	printf("Fork %ld created\n", i);
 		i++;
 	}
 	i = 0;
-	while (i < table()->nr_philo)
-	{
-		printf("id forks: %d\n", forks_table[i].fork_id);
-		i++;
-	}
+	//while (i < table()->nr_philo)
+	//{
+	//	printf("id forks: %d\n", forks_table[i].fork_id);
+	//	i++;
+	//}
 }
 
-void	seating_the_gentlemans()
+void	seating_the_gentlemans(void)
 {
 	long	i;
 	t_philo *philos;
@@ -74,38 +69,10 @@ void	seating_the_gentlemans()
 		philos[i] = create_philo(philos, i);
 		i++;
 	}
-	i = 0;
-	while (i < table()->nr_philo)
-	{
-		print_philo_data(i);
-		i++;
-	}
-}
-
-void	init_philo_opc(char **av)
-{
-	if (check_args(av) == 1)
-	{
-		printf("Error: wrong arguments\n");
-		return ;
-	}
-	init_table(av);
-	puting_the_forks_on_the_table();
-	seating_the_gentlemans();
-	//lets_the_party_begins();
-	washing_dishes();
-	kickoff_the_clients();
-}
-
-int main(int ac, char **av)
-{
-	if (ac == 6)
-		init_philo_opc(av);
-	else if (ac == 5)
-		init_philo(av)	;
-	else
-	{
-		printf("Error: wrong number of arguments\n");
-		return (1);
-	}
+	//i = 0;
+	//while (i < table()->nr_philo)
+	//{
+	//	print_philo_data(i);
+	//	i++;
+	//}
 }
