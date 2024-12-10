@@ -2,40 +2,29 @@
 #include "../inc/philosophers.h"
 #include <pthread.h>
 
-t_philo	*philo(void)
-{
-	static t_philo philo;
-	return (&philo);
-}
 
-t_table	*table(void)
-{
-	static t_table	table;
-	return (&table);
-}
-
-void	washing_dishes()
+void	washing_dishes(t_table *table)
 {
 	int i;
 
 	i = 0;
-	while (i < table()->nr_philo)
+	while (i < table->nr_philo)
 	{
-		pthread_mutex_destroy(&table()->forks[i].fork);
+		pthread_mutex_destroy(&table->forks[i].fork);
 		i++;
 	}
-	if (table()->forks)
+	if (table->forks)
 	{
-		free(table()->forks);
-		table()->forks = NULL;
+		free(table->forks);
+		table->forks = NULL;
 	}
 }
 
-void	kickoff_the_clients(void)
+void	kickoff_the_clients(t_table *table)
 {
-	if (table()->philos)
+	if (table->philos)
 	{
-		free(table()->philos);
-		table()->philos = NULL;
+		free(table->philos);
+		table->philos = NULL;
 	}
 }

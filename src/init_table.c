@@ -1,78 +1,61 @@
 #include "../inc/philosophers.h"
 
-void	init_philo(char **av)
-{
-	if (check_args(av) == 1)
-	{
-		printf("Error: wrong arguments\n");
-		return ;
-	}
-	table()->nr_philo = ft_atol(av[1]);
-}
-
-t_philo	create_philo(t_philo *philos, long i)
+t_philo	create_philo(t_philo *philos, long i, t_table *table)
 {
 	philos[i].philo_id = i;
-	philos[i].left_fork = &table()->forks[i];
-	philos[i].right_fork = &table()->forks[(i + 1) % table()->nr_philo];
+	philos[i].left_fork = &table->forks[i];
+	philos[i].right_fork = &table->forks[(i + 1) % table->nr_philo];
 	philos[i].thread_id = i;
 	return (philos[i]);
 }
 
-t_fork	create_forks(t_fork *forks_table, long i)
+t_fork	create_forks(t_fork *forks_table, long i, t_table *table)
 {
+    (void)table;
 	forks_table[i].fork_id = i;
 	pthread_mutex_init(&forks_table[i].fork, NULL);
 	printf("fork is in use: %ld\n", i);
 	return (forks_table[i]);
 }
 
-void	puting_the_forks_on_the_table(void)
+void	puting_the_forks_on_the_table(t_table *table, t_fork **forks_table)
 {
 	long i;
-	t_fork	*forks_table;
+
+	*forks_table = malloc(sizeof(t_fork) * table->nr_philo);
+	if (!(*forks_table))
+	{
+		printf("Error: failed to allocate memory for forks_table\n");
+		exit(1);
+	}
 
 	i = 0;
-	forks_table = malloc(sizeof(t_fork ) * table()->nr_philo);
-	if (!forks_table)
-		return ;
-	table()->forks = forks_table;
-	while (i < table()->nr_philo)
+	while (i < table->nr_philo)
 	{
-		forks_table[i] = create_forks(forks_table, i);
-	//	printf("Fork %ld created\n", i);
+		(*forks_table)[i] = create_forks(*forks_table, i, table);
 		i++;
 	}
-	i = 0;
-	//while (i < table()->nr_philo)
-	//{
-	//	printf("id forks: %d\n", forks_table[i].fork_id);
-	//	i++;
-	//}
+	table->forks = *forks_table;
 }
 
-void	seating_the_gentlemans(void)
+void	seating_the_gentlemans(t_table *table, t_philo **philos)
 {
 	long	i;
-	t_philo *philos;
 
-	philos = malloc(sizeof(t_philo) * table()->nr_philo);
-	table()->philos = philos;
-	if (!philos)
+	*philos = malloc(sizeof(t_philo) * table->nr_philo);
+	if (!(*philos))
 	{
-		washing_dishes();
-		return ;
+		printf("Error: failed to allocate memory for philos\n");
+		washing_dishes(table);
+		exit(1);
 	}
+
+	table->philos = *philos;
+
 	i = 0;
-	while (i < table()->nr_philo)
+	while (i < table->nr_philo)
 	{
-		philos[i] = create_philo(philos, i);
+		(*philos)[i] = create_philo(*philos, i, table);
 		i++;
 	}
-	//i = 0;
-	//while (i < table()->nr_philo)
-	//{
-	//	print_philo_data(i);
-	//	i++;
-	//}
 }
