@@ -51,6 +51,7 @@ void	init_table(char **av, t_table **table)
         exit(1);
     }
     (*table)->nr_philo = ft_atol(av[1]);
+    printf("numero de philos: %ld\n", (*table)->nr_philo);
     ft_check_philo_nr(*table);
     (*table)->time_to_die = ft_atol(av[2]);
     (*table)->time_to_eat = ft_atol(av[3]);

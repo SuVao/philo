@@ -32,6 +32,7 @@ void	puting_the_forks_on_the_table(t_table *table, t_fork **forks_table)
 	i = 0;
 	while (i < table->nr_philo)
 	{
+		printf("nr_philo: %ld\n", table->nr_philo);
 		(*forks_table)[i] = create_forks(*forks_table, i, table);
 		i++;
 	}

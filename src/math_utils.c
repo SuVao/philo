@@ -26,3 +26,23 @@ long ft_atol(char *s)
 		res = res * 10 + (s[i++] - '0');
 	return (sign * res);
 }
+
+int	ft_usleep(long milliseconds)
+{
+	long	start;
+
+	start = get_current_time();
+	while ((get_current_time() - start) < milliseconds)
+		usleep(100);
+	return (0);
+}
+
+long get_current_time(void)
+{
+	struct timeval	time;
+	long			current_time;
+
+	gettimeofday(&time, NULL);
+	current_time = time.tv_sec * 1000 + time.tv_usec / 1000;
+	return (current_time);
+}

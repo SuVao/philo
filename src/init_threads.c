@@ -7,7 +7,11 @@ void	ft_create_thread(t_table *table)
 	i = 0;
 	while (i < table->nr_philo)
 	{
-		pthread_create(&table->philos[i].thread_id, NULL, &dog_life, table);
+		if (pthread_create(&table->philos[i].thread_id, NULL, &dog_life, table) != 0)
+		{
+			printf("Error: failed to create thread\n");
+			exit(1);
+		}
 		i++;
 	}
 }
@@ -43,7 +47,11 @@ void	ft_thread_join(t_table *table)
 	i = 0;
 	while (i < table->nr_philo)
 	{
-		pthread_join(table->philos[i].thread_id, NULL);
+		if (pthread_join(table->philos[i].thread_id, NULL) != 0)
+		{
+			printf("Error: failed to join thread\n");
+			exit(1);
+		}
 		i++;
 	}
 }

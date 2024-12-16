@@ -30,6 +30,9 @@ typedef struct s_philo
 
 typedef struct s_table
 {
+	int				dead;
+	int				stop_simulation;
+	long			start_time;
 	long			time_to_die;
 	long			time_to_eat;
 	long			time_to_sleep;
@@ -46,28 +49,41 @@ void	ft_lock_threads(t_table *table);
 void	ft_unlock_threads(t_table *table);
 void	ft_thread_join(t_table *table);
 
+//dinner
+void	*dog_life(void *table);
+void	ft_lock_fork(long i, t_table *table);
+void	ft_unlock_fork(long i, t_table *table);
 
-long ft_atol(char *s);
-int is_digit(char c);
+//checks
+void	ft_check_time(t_table *table);
+
+//cleaning_house
 void	washing_dishes(t_table *table);
 void	kickoff_the_clients(t_table *table);
+
+//philo
+void 	*simulation_monitor(void *arg);
+void	table_for_pair_philos(t_table *table);
+void	table_for_odd_philos(t_table *table);
+void	mutex_threads(t_table *table);
+void	init_philo_opc(char **av);
+
+//math_utils
+long ft_atol(char *s);
+int is_digit(char c);
+long get_current_time(void);
+int	ft_usleep(long milliseconds);
+
+//utils
 int check_args(char **av);
 void	print_philo_data(long i, t_table *table);
+void	ft_check_philo_nr(t_table *table);
 void	init_table(char **av, t_table **table);
-void	init_philo(char **av);
+
+//init_table
 t_philo	create_philo(t_philo *philos, long i, t_table *table);
 t_fork	create_forks(t_fork *forks_table, long i, t_table *table);
 void	puting_the_forks_on_the_table(t_table *table, t_fork **forks_table);
 void	seating_the_gentlemans(t_table *table, t_philo **philo);
-void	*dog_life(void *table);
-void	table_for_pair_philos(long i, t_table *table);
-void	table_for_odd_philos(long i, t_table *table);
-void	ft_lock_fork_for_pair(long i, t_table *table);
-void	ft_unlock_fork_for_pair(long i, t_table *table);
-void	ft_lock_fork_for_odd(long i, t_table *table);
-void	ft_unlock_fork_for_odd(long i, t_table *table);
-void	ft_check_philo_nr(t_table *table);
-void	ft_check_time(t_table *table);
-
 
 #endif

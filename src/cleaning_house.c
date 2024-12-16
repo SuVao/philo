@@ -1,7 +1,5 @@
 
 #include "../inc/philosophers.h"
-#include <pthread.h>
-
 
 void	washing_dishes(t_table *table)
 {
