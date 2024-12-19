@@ -27,22 +27,22 @@ long ft_atol(char *s)
 	return (sign * res);
 }
 
-int	ft_usleep(long milliseconds)
+int	ft_usleep(long milliseconds, t_table *table)
 {
 	long	start;
 
-	start = get_current_time();
-	while ((get_current_time() - start) < milliseconds)
+	start = get_current_time(table);
+	while ((get_current_time(table) - start) < milliseconds)
 		usleep(100);
 	return (0);
 }
 
-long get_current_time(void)
+long get_current_time(t_table *table)
 {
 	struct timeval	time;
 	long			current_time;
 
 	gettimeofday(&time, NULL);
 	current_time = time.tv_sec * 1000 + time.tv_usec / 1000;
-	return (current_time);
+	return (current_time - table->start_time);
 }

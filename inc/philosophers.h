@@ -71,8 +71,8 @@ void	init_philo_opc(char **av);
 //math_utils
 long ft_atol(char *s);
 int is_digit(char c);
-long get_current_time(void);
-int	ft_usleep(long milliseconds);
+long get_current_time(t_table *table);
+int	ft_usleep(long milliseconds, t_table *table);
 
 //utils
 int check_args(char **av);

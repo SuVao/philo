@@ -35,6 +35,7 @@ void	init_philo_opc(char **av)
 		return ;
 	}
 	init_table(av, &table);
+	table->start_time = get_current_time(table);
 	puting_the_forks_on_the_table(table, &forks_table);
 	seating_the_gentlemans(table, &philo);
 	mutex_threads(table);
