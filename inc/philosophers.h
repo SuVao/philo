@@ -44,13 +44,14 @@ typedef struct s_table
 }				t_table;
 
 //init_threads
-void	ft_create_thread(t_table *table);
+void	ft_create_thread(t_table *table, t_philo *philo);
 void	ft_lock_threads(t_table *table);
 void	ft_unlock_threads(t_table *table);
 void	ft_thread_join(t_table *table);
 
 //dinner
-void	*dog_life(void *table);
+void	*dog_life(void *philo1);
+void	mutex_threads(t_table *table, t_philo *philo);
 void	ft_lock_fork(long i, t_table *table);
 void	ft_unlock_fork(long i, t_table *table);
 
@@ -65,7 +66,6 @@ void	kickoff_the_clients(t_table *table);
 void 	*simulation_monitor(void *arg);
 void	table_for_pair_philos(t_table *table);
 void	table_for_odd_philos(t_table *table);
-void	mutex_threads(t_table *table);
 void	init_philo_opc(char **av);
 
 //math_utils

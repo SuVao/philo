@@ -49,9 +49,7 @@ void	seating_the_gentlemans(t_table *table, t_philo **philos)
 		washing_dishes(table);
 		exit(1);
 	}
-
 	table->philos = *philos;
-
 	i = 0;
 	while (i < table->nr_philo)
 	{

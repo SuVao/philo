@@ -1,12 +1,12 @@
 #include "../inc/philosophers.h"
 
-void	mutex_threads(t_table *table)
+void	mutex_threads(t_table *table, t_philo *philo)
 {
 	table->shared_fork = 0;
 	ft_lock_threads(table);
 	table->shared_fork++;
 	ft_unlock_threads(table);
-	ft_create_thread(table);
+	ft_create_thread(table, philo);
 	ft_thread_join(table);
 }
 
@@ -25,42 +25,99 @@ void	ft_sync_threads(t_table *table)
 	}
 }
 
-void	*dog_life(void *table1)
+void	*dog_life(void *philo1)
 {
-	t_table    *table;
-	long i;
+	t_philo	*philo;
+	int		i;
 
 	i = 0;
-	table = (t_table *)table1;
-	//ft_usleep(table->time_to_die);
-	//sycnronize the threads
-	//ft_sync_threads(table);
-	while (!table->dead)
+	philo = (t_philo *)philo1;
+	printf("%ld\n", philo->table->nr_philo);
+	if (philo->table->nr_philo % 2 == 0)
 	{
-		if (table->nr_philo % 2 == 0)
+		while (!philo->table->dead)
 		{
-		//	if (philo->)
-			ft_lock_fork(i, table);
-			printf("%ld %d is eating\n", get_current_time(table),table->philos[i].philo_id);
-			ft_usleep(table->time_to_eat, table);
-			ft_unlock_fork(i, table);
-			printf("%ld %d is sleeping\n", get_current_time(table), table->philos[i].philo_id);
-			//ft_usleep(table->time_to_sleep);
-		//	i = (i + 1) % table->nr_philo;
+			if (philo->philo_id % 2 == 0)
+			{
+				ft_lock_fork(i, philo->table);
+				printf("%ld %d is eating\n", get_current_time(philo->table),philo->philo_id);
+				ft_usleep(philo->table->time_to_eat, philo->table);
+				ft_unlock_fork(i, philo->table);
+				printf("%ld %d is sleeping\n", get_current_time(philo->table), philo->philo_id);
+			}
+			else
+			{
+				ft_lock_fork(i, philo->table);
+				printf("%ld %d is eating\n", get_current_time(philo->table), philo[i].philo_id);
+				ft_usleep(philo->table->time_to_eat, philo->table);
+				ft_unlock_fork(i, philo->table);
+				printf("%ld %d is sleeping\n", get_current_time(philo->table), philo[i].philo_id);
+			}
+			i = (i + 1) % philo->table->nr_philo;
 		}
-		else
+	}
+	else
+	{
+		while (!philo->table->dead)
 		{
-			ft_lock_fork(i, table);
-			printf("%ld %d is eating\n", get_current_time(table), table->philos[i].philo_id);
-			ft_usleep(table->time_to_eat, table);
-			ft_unlock_fork(i, table);
-			printf("%d is sleeping\n", table->philos[i].philo_id);
-
+			if (philo->philo_id % 2 == 0)
+			{
+				ft_lock_fork(i, philo->table);
+				printf("%ld %d is eating\n", get_current_time(philo->table), philo->philo_id);
+				ft_usleep(philo->table->time_to_eat, philo->table);
+				ft_unlock_fork(i, philo->table);
+				printf("%ld %d is sleeping\n", get_current_time(philo->table), philo->philo_id);
+			}
+			else
+			{
+				ft_lock_fork(i, philo->table);
+				printf("%ld %d is eating\n", get_current_time(philo->table),philo->philo_id);
+				ft_usleep(philo->table->time_to_eat, philo->table);
+				ft_unlock_fork(i, philo->table);
+				printf("%ld %d is sleeping\n", get_current_time(philo->table), philo->philo_id);
+			}
+			i = (i + 1) % philo->table->nr_philo;
 		}
-		i = (i + 1) % table->nr_philo;
 	}
 	return (NULL);
 }
+
+// void	*dog_life(void *table1)
+// {
+// 	t_table    *table;
+// 	long i;
+
+// 	i = 0;
+// 	table = (t_table *)table1;
+// 	//ft_usleep(table->time_to_die);
+// 	//sycnronize the threads
+// 	//ft_sync_threads(table);
+// 	while (!table->dead)
+// 	{
+// 		if (table->nr_philo % 2 == 0)
+// 		{
+// 		//	if (philo->)
+// 			ft_lock_fork(i, table);
+// 			printf("%ld %d is eating\n", get_current_time(table),table->philos[i].philo_id);
+// 			ft_usleep(table->time_to_eat, table);
+// 			ft_unlock_fork(i, table);
+// 			printf("%ld %d is sleeping\n", get_current_time(table), table->philos[i].philo_id);
+// 			//ft_usleep(table->time_to_sleep);
+// 		//	i = (i + 1) % table->nr_philo;
+// 		}
+// 		else
+// 		{
+// 			ft_lock_fork(i, table);
+// 			printf("%ld %d is eating\n", get_current_time(table), table->philos[i].philo_id);
+// 			ft_usleep(table->time_to_eat, table);
+// 			ft_unlock_fork(i, table);
+// 			printf("%d is sleeping\n", table->philos[i].philo_id);
+
+// 		}
+// 		i = (i + 1) % table->nr_philo;
+// 	}
+// 	return (NULL);
+// }
 
 void	ft_lock_fork(long i, t_table *table)
 {

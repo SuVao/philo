@@ -1,13 +1,13 @@
 #include "../inc/philosophers.h"
 
-void	ft_create_thread(t_table *table)
+void	ft_create_thread(t_table *table, t_philo *philo)
 {
 	long i;
-
+	(void)philo;
 	i = 0;
 	while (i < table->nr_philo)
 	{
-		if (pthread_create(&table->philos[i].thread_id, NULL, &dog_life, table) != 0)
+		if (pthread_create(&table->philos[i].thread_id, NULL, &dog_life, &table->philos[i]) != 0)
 		{
 			printf("Error: failed to create thread\n");
 			exit(1);
