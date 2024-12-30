@@ -2,10 +2,11 @@
 
 t_philo	create_philo(t_philo *philos, long i, t_table *table)
 {
-	philos[i].philo_id = i;
+	philos[i].philo_id = i + 1;
 	philos[i].left_fork = &table->forks[i];
 	philos[i].right_fork = &table->forks[(i + 1) % table->nr_philo];
 	philos[i].thread_id = i;
+	table->philos[i].table = table;
 	return (philos[i]);
 }
 

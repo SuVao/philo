@@ -30,8 +30,8 @@ void	*dog_life(void *philo1)
 	t_philo	*philo;
 	int		i;
 
-	i = 0;
 	philo = (t_philo *)philo1;
+	i = (philo->philo_id - 1);
 	printf("%ld\n", philo->table->nr_philo);
 	if (philo->table->nr_philo % 2 == 0)
 	{
