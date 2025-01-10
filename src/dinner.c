@@ -2,11 +2,12 @@
 
 void	mutex_threads(t_table *table, t_philo *philo)
 {
+	(void)philo;
 	table->shared_fork = 0;
 	ft_lock_threads(table);
 	table->shared_fork++;
 	ft_unlock_threads(table);
-	ft_create_thread(table, philo);
+	ft_create_thread(table);
 	ft_thread_join(table);
 }
 
@@ -32,7 +33,7 @@ void	*dog_life(void *philo1)
 
 	philo = (t_philo *)philo1;
 	i = (philo->philo_id - 1);
-	printf("%ld\n", philo->table->nr_philo);
+//	ft_sycn_threads()
 	if (philo->table->nr_philo % 2 == 0)
 	{
 		while (!philo->table->dead)

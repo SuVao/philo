@@ -1,14 +1,15 @@
 #ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <pthread.h>
-# include <unistd.h>
-# include <sys/time.h>
-# include <limits.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <pthread.h>
+#include <unistd.h>
+#include <sys/time.h>
+#include <limits.h>
 
 typedef struct s_table t_table;
+typedef struct s_monitor t_monitor;
 
 typedef struct s_fork
 {
@@ -26,6 +27,7 @@ typedef struct s_philo
 	t_fork			*right_fork;
 	pthread_t		thread_id;
 	t_table			*table;
+	t_monitor		*monitor;
 }					t_philo;
 
 typedef struct s_table
@@ -41,10 +43,20 @@ typedef struct s_table
 	t_fork			*forks;
 	t_philo			*philos;
 	int				shared_fork;
+	t_monitor		*monitor;
 }				t_table;
 
+typedef struct s_monitor
+{
+	pthread_t	monitor_thread;
+	t_table		*table;
+	t_philo		*philo;
+	int			death;
+	long		meal_count;
+}				t_monitor;
+
 //init_threads
-void	ft_create_thread(t_table *table, t_philo *philo);
+void	ft_create_thread(t_table *table);
 void	ft_lock_threads(t_table *table);
 void	ft_unlock_threads(t_table *table);
 void	ft_thread_join(t_table *table);
@@ -85,5 +97,9 @@ t_philo	create_philo(t_philo *philos, long i, t_table *table);
 t_fork	create_forks(t_fork *forks_table, long i, t_table *table);
 void	puting_the_forks_on_the_table(t_table *table, t_fork **forks_table);
 void	seating_the_gentlemans(t_table *table, t_philo **philo);
+
+int	ft_timez(long eat, long sleep, long die);
+void	*monitor_routine(void *gamela);
+void create_monitor(t_monitor **monitor);
 
 #endif

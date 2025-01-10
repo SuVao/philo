@@ -1,4 +1,5 @@
 #include "../inc/philosophers.h"
+#include <stdlib.h>
 
 
 // void	table_for_pair_philos(long i, t_table *table)
@@ -20,6 +21,16 @@
 // 	ft_unlock_fork_for_odd(i, table);
 // }
 
+void create_monitor(t_monitor **monitor)
+{
+	(*monitor) = malloc(sizeof(t_monitor));
+	if (!monitor)
+		return ;
+	(*monitor)->monitor_thread = 2;
+	(*monitor)->death = 0;
+	(*monitor)->meal_count = 0;
+}
+
 void	init_philo_opc(char **av)
 {
     t_table     *table;
@@ -35,8 +46,17 @@ void	init_philo_opc(char **av)
 		return ;
 	}
 	init_table(av, &table);
+	if (ft_atol(av[1]) <= 1 || !ft_timez(table->time_to_die, \
+		table->time_to_sleep, table->time_to_eat))
+	{
+		free(table);
+		return ;
+	}
 	table->start_time = get_current_time(table);
 	puting_the_forks_on_the_table(table, &forks_table);
+	if (forks_table == NULL)
+		return ;
+	create_monitor(&table->monitor);
 	table->philos = philo;
 	table->forks = forks_table;
 	//philo->table = table;
@@ -55,4 +75,5 @@ int main(int ac, char **av)
 		printf("Error: wrong number of arguments\n");
 		return (1);
 	}
+	return (0);
 }
