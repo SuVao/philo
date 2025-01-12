@@ -42,7 +42,7 @@ void	ft_lock_threads(t_table *table)
 	i = 0;
 	while (i < table->nr_philo)
 	{
-		pthread_mutex_lock(&table->forks[i].fork);
+		ft_mutex_handler(&table->forks[i].fork, LOCK);
 		i++;
 	}
 }
@@ -54,7 +54,7 @@ void	ft_unlock_threads(t_table *table)
 	i = 0;
 	while (i < table->nr_philo)
 	{
-		pthread_mutex_unlock(&table->forks[i].fork);
+		ft_mutex_handler(&table->forks[i].fork, UNLOCK);
 		i++;
 	}
 }

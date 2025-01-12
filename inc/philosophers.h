@@ -7,6 +7,7 @@
 #include <unistd.h>
 #include <sys/time.h>
 #include <limits.h>
+#include <stdbool.h>
 
 typedef struct s_table t_table;
 typedef struct s_monitor t_monitor;
@@ -16,6 +17,14 @@ typedef struct s_fork
 	int				fork_id;
 	pthread_mutex_t	fork;
 }				t_fork;
+
+typedef enum e_code
+{
+	LOCK,
+	UNLOCK,
+	INIT,
+	DESTROY,
+}				t_code;
 
 typedef struct s_philo
 {
@@ -32,7 +41,9 @@ typedef struct s_philo
 
 typedef struct s_table
 {
+	pthread_mutex_t	table_mute;
 	int				dead;
+	bool			sync;
 	int				stop_simulation;
 	long			start_time;
 	long			time_to_die;
@@ -66,6 +77,8 @@ void	*dog_life(void *philo1);
 void	mutex_threads(t_table *table, t_philo *philo);
 void	ft_lock_fork(long i, t_table *table);
 void	ft_unlock_fork(long i, t_table *table);
+void	ft_sync_threads(t_table *table);
+void	ft_mutex_handler(pthread_mutex_t *mutex, t_code code);
 
 //checks
 void	ft_check_time(t_table *table);

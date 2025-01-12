@@ -8,7 +8,7 @@ void	washing_dishes(t_table *table)
 	i = 0;
 	while (i < table->nr_philo)
 	{
-		pthread_mutex_destroy(&table->forks[i].fork);
+		ft_mutex_handler(&table->forks[i].fork, DESTROY);
 		i++;
 	}
 	if (table->forks)

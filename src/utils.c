@@ -61,6 +61,8 @@ void	init_table(char **av, t_table **table)
         printf("Error: memory allocation failed\n");
         return ;
     }
+    (*table)->sync = false;
+    ft_mutex_handler(&(*table)->table_mute, INIT);
     (*table)->nr_philo = ft_atol(av[1]);
     ft_check_philo_nr(*table);
     (*table)->time_to_die = ft_atol(av[2]);
