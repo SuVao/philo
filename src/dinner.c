@@ -1,5 +1,6 @@
 #include "../inc/philosophers.h"
 #include <pthread.h>
+#include <stdbool.h>
 
 void	mutex_threads(t_table *table, t_philo *philo)
 {
@@ -24,12 +25,20 @@ void	ft_mutex_handler(pthread_mutex_t *mutex, t_code code)
 		pthread_mutex_destroy(mutex);
 }
 
-void	ft_sync_threads(t_table *table)
+void	ft_sync_threads(t_philo *philo, t_table *table)
 {
 	long i;
 
 	i = -1;
-
+	while (!table->sync)
+	{
+		while (philo[++i].sync_phi == false)
+		{
+			if (i == table->nr_philo - 1)
+				philo->sync_phi = true;
+		}
+		table->sync = true;
+	}
 	return ;
 }
 
@@ -40,92 +49,29 @@ void	*dog_life(void *philo1)
 
 	philo = (t_philo *)philo1;
 	i = (philo->philo_id - 1);
-	ft_sync_threads(philo->table);
-	if (philo->table->nr_philo % 2 == 0)
+	ft_sync_threads(philo, philo->table);
+	while (!philo->table->dead)
 	{
-		while (!philo->table->dead)
+		if (philo->philo_id % 2 == 0)
 		{
-			if (philo->philo_id % 2 == 0)
-			{
-				ft_lock_fork(i, philo->table);
-				printf("time:%ld philo id:%d is eating\n", get_current_time(philo->table),philo->philo_id);
-				ft_usleep(philo->table->time_to_eat, philo->table);
-				ft_unlock_fork(i, philo->table);
-				printf("time:%ld philo id:%d is sleeping\n", get_current_time(philo->table), philo->philo_id);
-			}
-			else
-			{
-				ft_lock_fork(i, philo->table);
-				printf("time:%ld philo id:%d is eating\n", get_current_time(philo->table), philo[i].philo_id);
-				ft_usleep(philo->table->time_to_eat, philo->table);
-				ft_unlock_fork(i, philo->table);
-				printf("time: %ld philo id:%d is sleeping\n", get_current_time(philo->table), philo[i].philo_id);
-			}
-			i = (i + 1) % philo->table->nr_philo;
+			ft_lock_fork(i, philo->table);
+			printf("time:%ld philo id:%d is eating\n", get_current_time(philo->table),philo->philo_id);
+			ft_usleep(philo->table->time_to_eat, philo->table);
+			ft_unlock_fork(i, philo->table);
+			printf("time:%ld philo id:%d is sleeping\n", get_current_time(philo->table), philo->philo_id);
 		}
-	}
-	else
-	{
-		while (!philo->table->dead)
+		else
 		{
-			if (philo->philo_id % 2 == 0)
-			{
-				ft_lock_fork(i, philo->table);
-				printf("time:%ld philo id:%d is eating\n", get_current_time(philo->table), philo->philo_id);
-				ft_usleep(philo->table->time_to_eat, philo->table);
-				ft_unlock_fork(i, philo->table);
-				printf("time:%ld philo id:%d is sleeping\n", get_current_time(philo->table), philo->philo_id);
-			}
-			else
-			{
-				ft_lock_fork(i, philo->table);
-				printf("time:%ld philo id:%d is eating\n", get_current_time(philo->table),philo->philo_id);
-				ft_usleep(philo->table->time_to_eat, philo->table);
-				ft_unlock_fork(i, philo->table);
-				printf("time:%ld philo id:%d is sleeping\n", get_current_time(philo->table), philo->philo_id);
-			}
-			i = (i + 1) % philo->table->nr_philo;
+			ft_lock_fork(i, philo->table);
+			printf("time:%ld philo id:%d is eating\n", get_current_time(philo->table), philo[i].philo_id);
+			ft_usleep(philo->table->time_to_eat, philo->table);
+			ft_unlock_fork(i, philo->table);
+			printf("time: %ld philo id:%d is sleeping\n", get_current_time(philo->table), philo[i].philo_id);
 		}
+		i = (i + 1) % philo->table->nr_philo;
 	}
 	return (NULL);
 }
-
-// void	*dog_life(void *table1)
-// {
-// 	t_table    *table;
-// 	long i;
-
-// 	i = 0;
-// 	table = (t_table *)table1;
-// 	//ft_usleep(table->time_to_die);
-// 	//sycnronize the threads
-// 	//ft_sync_threads(table);
-// 	while (!table->dead)
-// 	{
-// 		if (table->nr_philo % 2 == 0)
-// 		{
-// 		//	if (philo->)
-// 			ft_lock_fork(i, table);
-// 			printf("%ld %d is eating\n", get_current_time(table),table->philos[i].philo_id);
-// 			ft_usleep(table->time_to_eat, table);
-// 			ft_unlock_fork(i, table);
-// 			printf("%ld %d is sleeping\n", get_current_time(table), table->philos[i].philo_id);
-// 			//ft_usleep(table->time_to_sleep);
-// 		//	i = (i + 1) % table->nr_philo;
-// 		}
-// 		else
-// 		{
-// 			ft_lock_fork(i, table);
-// 			printf("%ld %d is eating\n", get_current_time(table), table->philos[i].philo_id);
-// 			ft_usleep(table->time_to_eat, table);
-// 			ft_unlock_fork(i, table);
-// 			printf("%d is sleeping\n", table->philos[i].philo_id);
-
-// 		}
-// 		i = (i + 1) % table->nr_philo;
-// 	}
-// 	return (NULL);
-// }
 
 void	ft_lock_fork(long i, t_table *table)
 {
@@ -138,10 +84,10 @@ void	ft_lock_fork(long i, t_table *table)
 		return;
 	}
 	printf("time:%ld philo id:%ld has taken the fork:%d\n", time, i, table->philos[i].philo_id);
-	ft_mutex_handler(&table->forks[i].fork, LOCK);
-	ft_mutex_handler(&table->forks[(i + 1) % table->nr_philo].fork, LOCK);
 	printf("time:%ld philo id:%d has taken the fork:%ld\n", time, \
 			table->philos[i].philo_id, (i + 1) % table->nr_philo);
+	ft_mutex_handler(&table->forks[i].fork, LOCK);
+	ft_mutex_handler(&table->forks[(i + 1) % table->nr_philo].fork, LOCK);
 
 }
 

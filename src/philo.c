@@ -1,4 +1,5 @@
 #include "../inc/philosophers.h"
+#include <bits/pthreadtypes.h>
 #include <stdlib.h>
 
 

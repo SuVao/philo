@@ -4,14 +4,15 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
 SRC_DIR = ./src
 OBJ_DIR = ./obj
-SRC_FILES = philo.c \
-			math_utils.c \
-			cleaning_house.c \
-			utils.c \
-			init_table.c \
-			init_threads.c \
-			dinner.c \
-			checks.c \
+SRC_FILES = philo.c				\
+			math_utils.c		\
+			cleaning_house.c	\
+			utils.c				\
+			init_table.c		\
+			init_threads.c		\
+			dinner.c			\
+			checks.c			\
+			set_get.c			\
 
 SRCS = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))

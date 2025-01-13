@@ -9,8 +9,7 @@ void	*monitor_routine(void *gamela)
 	monitor->death = 0;
 	while (!monitor->death)
 	{
-		printf("%d\n", monitor->death);
-		printf("ola estou aqui para foder tudo!\n");
+		//printf("%d\n", monitor->death);
 	}
 	return (NULL);
 }

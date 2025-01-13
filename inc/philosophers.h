@@ -37,6 +37,7 @@ typedef struct s_philo
 	pthread_t		thread_id;
 	t_table			*table;
 	t_monitor		*monitor;
+	bool			sync_phi;
 }					t_philo;
 
 typedef struct s_table
@@ -77,7 +78,7 @@ void	*dog_life(void *philo1);
 void	mutex_threads(t_table *table, t_philo *philo);
 void	ft_lock_fork(long i, t_table *table);
 void	ft_unlock_fork(long i, t_table *table);
-void	ft_sync_threads(t_table *table);
+void	ft_sync_threads(t_philo *philo, t_table *table);
 void	ft_mutex_handler(pthread_mutex_t *mutex, t_code code);
 
 //checks
@@ -114,5 +115,11 @@ void	seating_the_gentlemans(t_table *table, t_philo **philo);
 int	ft_timez(long eat, long sleep, long die);
 void	*monitor_routine(void *gamela);
 void create_monitor(t_monitor **monitor);
+
+//get_and_set
+void	ft_set_bool(pthread_mutex_t *mutex, bool *des, bool val);
+bool	ft_get_bool( pthread_mutex_t *mutex, bool *val);
+long	ft_get_long(pthread_mutex_t *mutex, long *val);
+void	ft_set_long(pthread_mutex_t *mutex, long *des, long val);
 
 #endif

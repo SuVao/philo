@@ -12,6 +12,7 @@ t_philo	create_philo(t_philo *philos, long i, t_table *table)
 	}
 	philos[i].thread_id = i;
 	philos[i].monitor = table->monitor;
+	philos[i].sync_phi = false;
 //	monitor->philo[i] = philos[i];
 	table->philos[i].table = table;
 	return (philos[i]);
