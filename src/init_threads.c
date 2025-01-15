@@ -10,6 +10,7 @@ void	*monitor_routine(void *gamela)
 	while (!monitor->death)
 	{
 		//printf("%d\n", monitor->death);
+		monitor->death = 1;
 	}
 	return (NULL);
 }

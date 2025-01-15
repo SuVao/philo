@@ -40,10 +40,11 @@ void	*dog_life(void *philo1)
 	philo = (t_philo *)philo1;
 	//i = (philo->philo_id - 1);
 	ft_sync_threads( philo->table);
-	ft_set_bool(&philo->table->table_mute, &philo->sync_phi, true);
+//	ft_set_bool(&philo->table->table_mute, &philo->sync_phi, true);
 	while (!ft_get_bool(&philo->table->table_mute, &philo->table->stop_simulation))
 	{
-	    printf("ola\n");
+	   // printf("ola\n");
+		ft_set_bool(&philo->table->table_mute, &philo->table->stop_simulation, true);
 	}
 	//while (!philo->table->dead)
 	//{

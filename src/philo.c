@@ -1,7 +1,4 @@
 #include "../inc/philosophers.h"
-#include <bits/pthreadtypes.h>
-#include <stdlib.h>
-
 
 // void	table_for_pair_philos(long i, t_table *table)
 // {
