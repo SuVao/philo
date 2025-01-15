@@ -10,6 +10,7 @@ void	mutex_threads(t_table *table, t_philo *philo)
 	table->shared_fork++;
 	ft_unlock_threads(table);
 	ft_create_thread(table);
+	ft_set_bool(&table->table_mute, &philo->sync_phi, true);
 	ft_thread_join(table);
 }
 
@@ -25,51 +26,45 @@ void	ft_mutex_handler(pthread_mutex_t *mutex, t_code code)
 		pthread_mutex_destroy(mutex);
 }
 
-void	ft_sync_threads(t_philo *philo, t_table *table)
+void	ft_sync_threads(t_table *table)
 {
-	long i;
-
-	i = -1;
-	while (!table->sync)
-	{
-		while (philo[++i].sync_phi == false)
-		{
-			if (i == table->nr_philo - 1)
-				philo->sync_phi = true;
-		}
-		table->sync = true;
-	}
-	return ;
+    while (!ft_get_bool(&table->table_mute, &table->philos->sync_phi))
+        ;
 }
 
 void	*dog_life(void *philo1)
 {
 	t_philo	*philo;
-	int		i;
+	//int		i;
 
 	philo = (t_philo *)philo1;
-	i = (philo->philo_id - 1);
-	ft_sync_threads(philo, philo->table);
-	while (!philo->table->dead)
+	//i = (philo->philo_id - 1);
+	ft_sync_threads( philo->table);
+	ft_set_bool(&philo->table->table_mute, &philo->sync_phi, true);
+	while (!ft_get_bool(&philo->table->table_mute, &philo->table->stop_simulation))
 	{
-		if (philo->philo_id % 2 == 0)
-		{
-			ft_lock_fork(i, philo->table);
-			printf("time:%ld philo id:%d is eating\n", get_current_time(philo->table),philo->philo_id);
-			ft_usleep(philo->table->time_to_eat, philo->table);
-			ft_unlock_fork(i, philo->table);
-			printf("time:%ld philo id:%d is sleeping\n", get_current_time(philo->table), philo->philo_id);
-		}
-		else
-		{
-			ft_lock_fork(i, philo->table);
-			printf("time:%ld philo id:%d is eating\n", get_current_time(philo->table), philo[i].philo_id);
-			ft_usleep(philo->table->time_to_eat, philo->table);
-			ft_unlock_fork(i, philo->table);
-			printf("time: %ld philo id:%d is sleeping\n", get_current_time(philo->table), philo[i].philo_id);
-		}
-		i = (i + 1) % philo->table->nr_philo;
+	    printf("ola\n");
 	}
+	//while (!philo->table->dead)
+	//{
+	//	if (philo->philo_id % 2 == 0)
+	//	{
+	//		ft_lock_fork(i, philo->table);
+	//		printf("time:%ld philo id:%d is eating\n", get_current_time(philo->table),philo->philo_id);
+	//		ft_usleep(philo->table->time_to_eat, philo->table);
+	//		ft_unlock_fork(i, philo->table);
+	//		printf("time:%ld philo id:%d is sleeping\n", get_current_time(philo->table), philo->philo_id);
+	//	}
+	//	else
+	//	{
+	//		ft_lock_fork(i, philo->table);
+	//		printf("time:%ld philo id:%d is eating\n", get_current_time(philo->table), philo[i].philo_id);
+	//		ft_usleep(philo->table->time_to_eat, philo->table);
+	//		ft_unlock_fork(i, philo->table);
+	//		printf("time: %ld philo id:%d is sleeping\n", get_current_time(philo->table), philo[i].philo_id);
+	//	}
+	//	i = (i + 1) % philo->table->nr_philo;
+	//}
 	return (NULL);
 }
 

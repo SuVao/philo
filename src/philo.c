@@ -60,7 +60,6 @@ void	init_philo_opc(char **av)
 	create_monitor(&table->monitor);
 	table->philos = philo;
 	table->forks = forks_table;
-	//philo->table = table;
 	seating_the_gentlemans(table, &philo);
 	mutex_threads(table, philo);
 	washing_dishes(table);

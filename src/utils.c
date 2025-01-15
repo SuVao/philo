@@ -63,6 +63,7 @@ void	init_table(char **av, t_table **table)
     }
     (*table)->sync = false;
     ft_mutex_handler(&(*table)->table_mute, INIT);
+    (*table)->stop_simulation = false;
     (*table)->nr_philo = ft_atol(av[1]);
     ft_check_philo_nr(*table);
     (*table)->time_to_die = ft_atol(av[2]);
