@@ -19,14 +19,15 @@
 // 	ft_unlock_fork_for_odd(i, table);
 // }
 
-void create_monitor(t_monitor **monitor)
+void create_monitor(t_monitor **monitor, t_table *table)
 {
 	(*monitor) = malloc(sizeof(t_monitor));
 	if (!monitor)
 		return ;
 	(*monitor)->monitor_thread = 2;
-	(*monitor)->death = 0;
+	(*monitor)->death = false;
 	(*monitor)->meal_count = 0;
+	(*monitor)->table = table;
 }
 
 void	init_philo_opc(char **av)
@@ -54,13 +55,12 @@ void	init_philo_opc(char **av)
 	puting_the_forks_on_the_table(table, &forks_table);
 	if (forks_table == NULL)
 		return ;
-	create_monitor(&table->monitor);
+	create_monitor(&table->monitor, table);
 	table->philos = philo;
 	table->forks = forks_table;
 	seating_the_gentlemans(table, &philo);
 	mutex_threads(table, philo);
 	washing_dishes(table);
-	kickoff_the_clients(table);
 }
 
 int main(int ac, char **av)

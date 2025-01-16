@@ -63,7 +63,7 @@ typedef struct s_monitor
 	pthread_t	monitor_thread;
 	t_table		*table;
 	t_philo		*philo;
-	int			death;
+	bool		death;
 	long		meal_count;
 }				t_monitor;
 
@@ -114,7 +114,7 @@ void	seating_the_gentlemans(t_table *table, t_philo **philo);
 
 int	ft_timez(long eat, long sleep, long die);
 void	*monitor_routine(void *gamela);
-void create_monitor(t_monitor **monitor);
+void create_monitor(t_monitor **monitor, t_table *table);
 
 //get_and_set
 void	ft_set_bool(pthread_mutex_t *mutex, bool *des, bool val);

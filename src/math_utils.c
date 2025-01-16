@@ -33,7 +33,11 @@ int	ft_usleep(long milliseconds, t_table *table)
 
 	start = get_current_time(table);
 	while ((get_current_time(table) - start) < milliseconds)
+	{
+		if (ft_get_bool(&table->table_mute, &table->stop_simulation))
+			break ;
 		usleep(100);
+	}
 	return (0);
 }
 

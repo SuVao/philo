@@ -22,7 +22,7 @@ t_fork	create_forks(t_fork *forks_table, long i, t_table *table)
 {
     (void)table;
 	forks_table[i].fork_id = i;
-	pthread_mutex_init(&forks_table[i].fork, NULL);
+	ft_mutex_handler(&forks_table[i].fork, INIT);
 	printf("fork id: %ld\n", i);
 	return (forks_table[i]);
 }
