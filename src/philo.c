@@ -28,6 +28,7 @@ void create_monitor(t_monitor **monitor, t_table *table)
 	(*monitor)->death = false;
 	(*monitor)->meal_count = 0;
 	(*monitor)->table = table;
+	ft_mutex_handler(&(*monitor)->monitor_mute, INIT);
 }
 
 void	init_philo_opc(char **av)

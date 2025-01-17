@@ -37,6 +37,7 @@ typedef struct s_philo
 	pthread_t		thread_id;
 	t_table			*table;
 	t_monitor		*monitor;
+	pthread_mutex_t	philo_mute;
 	bool			sync_phi;
 	bool            dead;
 }					t_philo;
@@ -60,11 +61,12 @@ typedef struct s_table
 
 typedef struct s_monitor
 {
-	pthread_t	monitor_thread;
-	t_table		*table;
-	t_philo		*philo;
-	bool		death;
-	long		meal_count;
+	pthread_t		monitor_thread;
+	pthread_mutex_t	monitor_mute; 
+	t_table			*table;
+	t_philo			*philo;
+	bool			death;
+	long			meal_count;
 }				t_monitor;
 
 //init_threads

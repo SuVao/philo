@@ -1,6 +1,4 @@
 #include "../inc/philosophers.h"
-#include <pthread.h>
-#include <stdbool.h>
 
 void	mutex_threads(t_table *table, t_philo *philo)
 {

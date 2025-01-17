@@ -6,10 +6,12 @@ void	*monitor_routine(void *gamela)
 	t_monitor *monitor;
 
 	monitor = (t_monitor *)gamela;
-	while (!monitor->death)
+	while (!ft_get_bool(&monitor->monitor_mute, &monitor->death))
 	{
 		//printf("%d\n", monitor->death);
-
+		printf("ola\n");
+		ft_set_bool(&monitor->monitor_mute, &monitor->death, true);
+		
 	}
 	return (NULL);
 }
@@ -44,6 +46,9 @@ void	ft_lock_threads(t_table *table)
 		ft_mutex_handler(&table->forks[i].fork, LOCK);
 		i++;
 	}
+	//ft_mutex_handler(&table->monitor->monitor_mute, LOCK);
+	//ft_mutex_handler(&table->table_mute, LOCK);
+
 }
 
 void	ft_unlock_threads(t_table *table)
@@ -56,6 +61,8 @@ void	ft_unlock_threads(t_table *table)
 		ft_mutex_handler(&table->forks[i].fork, UNLOCK);
 		i++;
 	}
+	//ft_mutex_handler(&table->monitor->monitor_mute, UNLOCK);
+	//ft_mutex_handler(&table->table_mute, UNLOCK);
 }
 
 void	ft_thread_join(t_table *table)
