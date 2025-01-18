@@ -10,6 +10,7 @@ t_philo	create_philo(t_philo *philos, long i, t_table *table)
 		philos[i].right_fork = &table->forks[i]; // 1st se for par
 		philos[i].left_fork = &table->forks[(i + 1) % table->nr_philo]; // 2nd se for par
 	}
+	ft_mutex_handler(&philos[i].philo_mute, INIT);
 	philos[i].thread_id = i;
 	philos[i].monitor = table->monitor;
 	philos[i].sync_phi = false;

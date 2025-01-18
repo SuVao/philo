@@ -29,7 +29,7 @@ typedef enum e_code
 typedef struct s_philo
 {
 	int				philo_id;
-	long			last_meal;
+	long			last_meal_time;
 	long			meal_count;
 	int				nb_of_meals;
 	t_fork			*left_fork;
@@ -62,7 +62,7 @@ typedef struct s_table
 typedef struct s_monitor
 {
 	pthread_t		monitor_thread;
-	pthread_mutex_t	monitor_mute; 
+	pthread_mutex_t	monitor_mute;
 	t_table			*table;
 	t_philo			*philo;
 	bool			death;
