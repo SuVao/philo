@@ -14,6 +14,7 @@ SRC_FILES = philo.c				\
 			checks.c			\
 			set_get.c			\
 			routines.c          \
+			gamela.c            \
 
 SRCS = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))

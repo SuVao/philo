@@ -1,9 +1,9 @@
 #include "../inc/philosophers.h"
 
-//void    ft_philo_thinks(t_philo *philo)
-//{
-//
-//}
+void    ft_philo_thinks(t_philo *philo)
+{
+    printf("%ld %d is thinking\n", get_current_time(philo->table), philo->philo_id);
+}
 
 void ft_eat_routine(t_philo *philo)
 {

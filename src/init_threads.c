@@ -1,20 +1,4 @@
 #include "../inc/philosophers.h"
-#include <pthread.h>
-
-void	*monitor_routine(void *gamela)
-{
-	t_monitor *monitor;
-
-	monitor = (t_monitor *)gamela;
-	while (!ft_get_bool(&monitor->monitor_mute, &monitor->death))
-	{
-		//printf("%d\n", monitor->death);
-	//	printf("ola\n");
-		ft_set_bool(&monitor->monitor_mute, &monitor->death, true);
-
-	}
-	return (NULL);
-}
 
 void	ft_create_thread(t_table *table)
 {
@@ -29,7 +13,7 @@ void	ft_create_thread(t_table *table)
 		}
 		i++;
 	}
-	if (pthread_create(&table->monitor->monitor_thread, NULL, &monitor_routine, &table->monitor) != 0)
+	if (pthread_create(&table->monitor->monitor_thread, NULL, &monitor_routine, &table) != 0)
 	{
 		printf("Error: failed to create the monitor");
 		return ;

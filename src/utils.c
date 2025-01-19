@@ -78,6 +78,7 @@ void	init_table(char **av, t_table **table)
     	return ;
     else
         (*table)->nb_of_meals = ft_atol(av[5]);
+    (*table)->philo_seated = 0;
     printf("nr philos: %ld\n", (*table)->nr_philo);
     printf("time to die: %ld\n", (*table)->time_to_die);
     printf("time to eat: %ld\n", (*table)->time_to_eat);

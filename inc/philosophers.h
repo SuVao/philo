@@ -54,6 +54,7 @@ typedef struct s_table
 	long			time_to_sleep;
 	long			nr_philo;
 	long			nb_of_meals;
+	long            philo_seated;
 	t_fork			*forks;
 	t_philo			*philos;
 	int				shared_fork;
@@ -126,5 +127,8 @@ long	ft_get_long(pthread_mutex_t *mutex, long *val);
 void	ft_set_long(pthread_mutex_t *mutex, long *des, long val);
 
 void ft_eat_routine(t_philo *philo);
+void    ft_philo_thinks(t_philo *philo);
+void    ft_one_more_seated(pthread_mutex_t *mutex, long *philo_seated);
+bool    all_philo_seats(pthread_mutex_t *mutex, long *philos, long philo_nr);
 
 #endif

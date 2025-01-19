@@ -1,4 +1,6 @@
 #include "../inc/philosophers.h"
+#include <bits/pthreadtypes.h>
+#include <stdbool.h>
 
 void	mutex_threads(t_table *table, t_philo *philo)
 {
@@ -30,15 +32,40 @@ void	ft_sync_threads(t_table *table)
         ;
 }
 
+bool    all_philo_seats(pthread_mutex_t *mutex, long *philos, long philo_nr)
+{
+    bool    ola;
+
+    ola = false;
+    ft_mutex_handler(mutex, LOCK);
+    if (*philos == philo_nr)
+        ola = true;
+    ft_mutex_handler(mutex, UNLOCK);
+    return (ola);
+}
+
+void    ft_one_more_seated(pthread_mutex_t *mutex, long *philo_seated)
+{
+    ft_mutex_handler(mutex, LOCK);
+    (*philo_seated)++;
+    ft_mutex_handler(mutex, UNLOCK);
+}
+
 void	*dog_life(void *philo1)
 {
 	t_philo	*philo;
 
 	philo = (t_philo *)philo1;
 	ft_sync_threads( philo->table);
+	ft_one_more_seated(&philo->table->table_mute , &philo->table->philo_seated):
 	while (!ft_get_bool(&philo->table->table_mute, &philo->table->stop_simulation))
 	{
+	    if (philo->full)
+			break ;
 		ft_eat_routine(philo);
+		printf("%ld %d is sleeping\n", get_current_time(philo->table), philo->philo_id);
+		ft_usleep(philo->table->time_to_sleep, philo->table);
+		ft_philo_thinks(philo);
 	//	ft_set_bool(&philo->table->table_mute, &philo->table->stop_simulation, true);
 	}
 	//while (!philo->table->dead)

@@ -1,36 +1,5 @@
 #include "../inc/philosophers.h"
 
-// void	table_for_pair_philos(long i, t_table *table)
-// {
-// 	ft_lock_fork_for_pair(i, table);
-// 	table->philos[i].left_fork = &table->forks[i];
-// 	table->philos[i].right_fork = &table->forks[(i + 1) % table->nr_philo];
-// 	printf("philo %ld is eating\n", i);
-// 	ft_unlock_fork_for_pair(i, table);
-
-// }
-
-// void	table_for_odd_philos(long i, t_table *table)
-// {
-// 	ft_lock_fork_for_odd(i, table);
-// 	table->philos[i].left_fork = &table->forks[(i + 1) % table->nr_philo];
-// 	table->philos[i].right_fork = &table->forks[i];
-// 	printf("philo %ld is eating\n", i);
-// 	ft_unlock_fork_for_odd(i, table);
-// }
-
-void create_monitor(t_monitor **monitor, t_table *table)
-{
-	(*monitor) = malloc(sizeof(t_monitor));
-	if (!monitor)
-		return ;
-	(*monitor)->monitor_thread = 2;
-	(*monitor)->death = false;
-	(*monitor)->meal_count = 0;
-	(*monitor)->table = table;
-	ft_mutex_handler(&(*monitor)->monitor_mute, INIT);
-}
-
 void	init_philo_opc(char **av)
 {
     t_table     *table;
