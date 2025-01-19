@@ -9,9 +9,9 @@ void	*monitor_routine(void *gamela)
 	while (!ft_get_bool(&monitor->monitor_mute, &monitor->death))
 	{
 		//printf("%d\n", monitor->death);
-		printf("ola\n");
+	//	printf("ola\n");
 		ft_set_bool(&monitor->monitor_mute, &monitor->death, true);
-		
+
 	}
 	return (NULL);
 }

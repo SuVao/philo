@@ -31,7 +31,8 @@ typedef struct s_philo
 	int				philo_id;
 	long			last_meal_time;
 	long			meal_count;
-	int				nb_of_meals;
+	long			nb_philo_meals;
+	bool            full;
 	t_fork			*left_fork;
 	t_fork			*right_fork;
 	pthread_t		thread_id;
@@ -123,5 +124,7 @@ void	ft_set_bool(pthread_mutex_t *mutex, bool *des, bool val);
 bool	ft_get_bool( pthread_mutex_t *mutex, bool *val);
 long	ft_get_long(pthread_mutex_t *mutex, long *val);
 void	ft_set_long(pthread_mutex_t *mutex, long *des, long val);
+
+void ft_eat_routine(t_philo *philo);
 
 #endif
