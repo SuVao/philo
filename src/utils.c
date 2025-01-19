@@ -28,18 +28,19 @@ void	print_philo_data(long i, t_table *table)
 	printf("philo thread_id: %lu\n", table->philos[i].thread_id);
 }
 
-void	ft_check_philo_nr(t_table *table)
+bool	ft_check_philo_nr(t_table *table)
 {
 	if (table->nr_philo == 1)
 	{
 		printf("the philo is dead\n");
-		return ;
+		return (false);
 	}
 	else if (table->nr_philo < 1)
 	{
 		printf("Invalid nunber of philos\n");
-		return ;
+		return (false);
 	}
+	return (true);
 }
 
 int	ft_timez(long eat, long sleep, long die)
@@ -65,11 +66,9 @@ void	init_table(char **av, t_table **table)
     ft_mutex_handler(&(*table)->table_mute, INIT);
     (*table)->stop_simulation = false;
     (*table)->nr_philo = ft_atol(av[1]);
-    ft_check_philo_nr(*table);
     (*table)->time_to_die = ft_atol(av[2]);
     (*table)->time_to_eat = ft_atol(av[3]);
     (*table)->time_to_sleep = ft_atol(av[4]);
-    ft_check_time(*table);
     if (!ft_timez(ft_atol(av[2]), ft_atol(av[3]), ft_atol(av[4])))
     	return ;
     if (av[5] == NULL)
@@ -79,9 +78,4 @@ void	init_table(char **av, t_table **table)
     else
         (*table)->nb_of_meals = ft_atol(av[5]);
     (*table)->philo_seated = 0;
-    printf("nr philos: %ld\n", (*table)->nr_philo);
-    printf("time to die: %ld\n", (*table)->time_to_die);
-    printf("time to eat: %ld\n", (*table)->time_to_eat);
-    printf("time to sleep: %ld\n", (*table)->time_to_sleep);
-    printf("nbr of meals: %ld\n", (*table)->nb_of_meals);
 }

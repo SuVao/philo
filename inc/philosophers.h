@@ -86,7 +86,7 @@ void	ft_sync_threads(t_table *table);
 void	ft_mutex_handler(pthread_mutex_t *mutex, t_code code);
 
 //checks
-void	ft_check_time(t_table *table);
+bool	ft_check_time(t_table *table);
 
 //cleaning_house
 void	washing_dishes(t_table *table);
@@ -107,7 +107,7 @@ int	ft_usleep(long milliseconds, t_table *table);
 //utils
 int check_args(char **av);
 void	print_philo_data(long i, t_table *table);
-void	ft_check_philo_nr(t_table *table);
+bool	ft_check_philo_nr(t_table *table);
 void	init_table(char **av, t_table **table);
 
 //init_table
@@ -130,5 +130,7 @@ void ft_eat_routine(t_philo *philo);
 void    ft_philo_thinks(t_philo *philo);
 void    ft_one_more_seated(pthread_mutex_t *mutex, long *philo_seated);
 bool    all_philo_seats(pthread_mutex_t *mutex, long *philos, long philo_nr);
+
+bool    found_dead_philo(t_philo *philo);
 
 #endif

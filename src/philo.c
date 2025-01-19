@@ -15,7 +15,12 @@ void	init_philo_opc(char **av)
 		return ;
 	}
 	init_table(av, &table);
-	if (ft_atol(av[1]) <= 1 || !ft_timez(table->time_to_die, \
+	if (!ft_check_philo_nr(table) || !ft_check_time(table))
+	{
+	    free(table);
+		return ;
+	}
+	if (!ft_timez(table->time_to_die, \
 		table->time_to_sleep, table->time_to_eat))
 	{
 		free(table);
@@ -35,6 +40,11 @@ void	init_philo_opc(char **av)
 
 int main(int ac, char **av)
 {
+    if (ft_atol(av[1]) == 1)
+    {
+        printf("the philo is dead!\n");
+        return (1);
+    }
 	if (ac == 6 || ac == 5)
 		init_philo_opc(av);
 	else
