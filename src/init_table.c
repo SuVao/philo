@@ -3,12 +3,12 @@
 t_philo	create_philo(t_philo *philos, long i, t_table *table)
 {
 	philos[i].philo_id = i + 1;
-	philos[i].left_fork = &table->forks[(i + 1) % table->nr_philo]; // 1st se for impar
-	philos[i].right_fork = &table->forks[i]; // 2nd se for impar
+	philos[i].left_fork = &table->forks[(i + 1) % table->nr_philo];
+	philos[i].right_fork = &table->forks[i];
 	if (philos[i].philo_id % 2 == 0)
 	{
-		philos[i].left_fork = &table->forks[i]; // 1st se for par
-		philos[i].right_fork = &table->forks[(i + 1) % table->nr_philo]; // 2nd se for par
+		philos[i].left_fork = &table->forks[i];
+		philos[i].right_fork = &table->forks[(i + 1) % table->nr_philo];
 	}
 	ft_mutex_handler(&philos[i].philo_mute, INIT);
 	philos[i].full = false;
