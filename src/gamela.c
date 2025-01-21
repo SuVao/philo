@@ -5,10 +5,10 @@ void create_monitor(t_monitor **monitor, t_table *table)
 	(*monitor) = malloc(sizeof(t_monitor));
 	if (!monitor)
 		return ;
-	(*monitor)->monitor_thread = 2;
+	(*monitor)->monitor_thread = 0;
 	(*monitor)->death = false;
 	(*monitor)->meal_count = 0;
-	(*monitor)->table = table;
+	(*monitor)->table = &table;
 	ft_mutex_handler(&(*monitor)->monitor_mute, INIT);
 }
 
@@ -23,10 +23,21 @@ bool    found_dead_philo(t_philo *philo)
     time = get_current_time(philo->table) - \
             ft_get_long(&philo->philo_mute, &philo->last_meal_time);
     t_die = philo->table->time_to_die;
-
     if (time > t_die)
         return (true);
     return (false);
+}
+
+bool    all_philo_seats(pthread_mutex_t *mutex, long *philos, long philo_nr)
+{
+    bool    ola;
+
+    ola = false;
+    ft_mutex_handler(mutex, LOCK);
+    if (*philos == philo_nr)
+        ola = true;
+    ft_mutex_handler(mutex, UNLOCK);
+    return (ola);
 }
 
 void	*monitor_routine(void *table1)
@@ -50,7 +61,7 @@ void	*monitor_routine(void *table1)
 			}
 		    i++;
 		}
-		ft_set_bool(&table->monitor->monitor_mute, &table->monitor->death, true);
+	//	ft_set_bool(&table->monitor->monitor_mute, &table->monitor->death, true);
 	}
 	return (NULL);
 }

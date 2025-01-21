@@ -65,7 +65,7 @@ typedef struct s_monitor
 {
 	pthread_t		monitor_thread;
 	pthread_mutex_t	monitor_mute;
-	t_table			*table;
+	t_table			**table;
 	t_philo			*philo;
 	bool			death;
 	long			meal_count;

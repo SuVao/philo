@@ -3,6 +3,14 @@
 t_philo	create_philo(t_philo *philos, long i, t_table *table)
 {
 	philos[i].philo_id = i + 1;
+	philos[i].full = false;
+	philos[i].thread_id = i;
+	philos[i].monitor = table->monitor;
+	philos[i].sync_phi = false;
+	philos[i].table = table;
+	//table->philos[i].table = table;
+
+
 	philos[i].left_fork = &table->forks[(i + 1) % table->nr_philo];
 	philos[i].right_fork = &table->forks[i];
 	if (philos[i].philo_id % 2 == 0)
@@ -11,12 +19,6 @@ t_philo	create_philo(t_philo *philos, long i, t_table *table)
 		philos[i].right_fork = &table->forks[(i + 1) % table->nr_philo];
 	}
 	ft_mutex_handler(&philos[i].philo_mute, INIT);
-	philos[i].full = false;
-	philos[i].thread_id = i;
-	philos[i].monitor = table->monitor;
-	philos[i].sync_phi = false;
-//	monitor->philo[i] = philos[i];
-	table->philos[i].table = table;
 	return (philos[i]);
 }
 
@@ -25,7 +27,6 @@ t_fork	create_forks(t_fork *forks_table, long i, t_table *table)
     (void)table;
 	forks_table[i].fork_id = i;
 	ft_mutex_handler(&forks_table[i].fork, INIT);
-	printf("fork id: %ld\n", i);
 	return (forks_table[i]);
 }
 

@@ -13,7 +13,7 @@ void	ft_create_thread(t_table *table)
 		}
 		i++;
 	}
-	if (pthread_create(&table->monitor->monitor_thread, NULL, &monitor_routine, &table) != 0)
+	if (pthread_create(&table->monitor->monitor_thread, NULL, &monitor_routine, table) != 0)
 	{
 		printf("Error: failed to create the monitor");
 		return ;

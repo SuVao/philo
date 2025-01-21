@@ -32,18 +32,6 @@ void	ft_sync_threads(t_table *table)
         ;
 }
 
-bool    all_philo_seats(pthread_mutex_t *mutex, long *philos, long philo_nr)
-{
-    bool    ola;
-
-    ola = false;
-    ft_mutex_handler(mutex, LOCK);
-    if (*philos == philo_nr)
-        ola = true;
-    ft_mutex_handler(mutex, UNLOCK);
-    return (ola);
-}
-
 void    ft_one_more_seated(pthread_mutex_t *mutex, long *philo_seated)
 {
     ft_mutex_handler(mutex, LOCK);
@@ -61,34 +49,18 @@ void	*dog_life(void *philo1)
 	ft_one_more_seated(&philo->table->table_mute , &philo->table->philo_seated);
 	while (!ft_get_bool(&philo->table->table_mute, &philo->table->stop_simulation))
 	{
+
 	    if (philo->full)
 			break ;
 		ft_eat_routine(philo);
+		printf("%b\n", philo->table->stop_simulation);
+		//if (ft_get_bool(&philo->table->table_mute, &philo->table->stop_simulation))
+		//    break ;
 		printf("%ld %d is sleeping\n", get_current_time(philo->table), philo->philo_id);
 		ft_usleep(philo->table->time_to_sleep, philo->table);
 		ft_philo_thinks(philo);
 	//	ft_set_bool(&philo->table->table_mute, &philo->table->stop_simulation, true);
 	}
-	//while (!philo->table->dead)
-	//{
-	//	if (philo->philo_id % 2 == 0)
-	//	{
-	//		ft_lock_fork(i, philo->table);
-	//		printf("time:%ld philo id:%d is eating\n", get_current_time(philo->table),philo->philo_id);
-	//		ft_usleep(philo->table->time_to_eat, philo->table);
-	//		ft_unlock_fork(i, philo->table);
-	//		printf("time:%ld philo id:%d is sleeping\n", get_current_time(philo->table), philo->philo_id);
-	//	}
-	//	else
-	//	{
-	//		ft_lock_fork(i, philo->table);
-	//		printf("time:%ld philo id:%d is eating\n", get_current_time(philo->table), philo[i].philo_id);
-	//		ft_usleep(philo->table->time_to_eat, philo->table);
-	//		ft_unlock_fork(i, philo->table);
-	//		printf("time: %ld philo id:%d is sleeping\n", get_current_time(philo->table), philo[i].philo_id);
-	//	}
-	//	i = (i + 1) % philo->table->nr_philo;
-	//}
 	return (NULL);
 }
 

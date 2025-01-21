@@ -20,9 +20,9 @@ void ft_eat_routine(t_philo *philo)
         ft_set_bool(&philo->philo_mute, &philo->full, true);
 
     ft_mutex_handler(&philo->left_fork->fork , UNLOCK);
-    printf("%ld %d release the left fork %d\n", get_current_time(philo->table), philo->philo_id, philo->left_fork->fork_id);
+    //printf("%ld %d release the left fork %d\n", get_current_time(philo->table), philo->philo_id, philo->left_fork->fork_id);
 
     ft_mutex_handler(&philo->right_fork->fork , UNLOCK);
-    printf("%ld %d release the right fork %d\n", get_current_time(philo->table) ,philo->philo_id, philo->right_fork->fork_id);
+    //printf("%ld %d release the right fork %d\n", get_current_time(philo->table) ,philo->philo_id, philo->right_fork->fork_id);
 
 }
