@@ -49,16 +49,23 @@ void	*dog_life(void *philo1)
 	ft_one_more_seated(&philo->table->table_mute , &philo->table->philo_seated);
 	while (!ft_get_bool(&philo->table->table_mute, &philo->table->stop_simulation))
 	{
-
-	    if (philo->full)
+        //  if (ft_get_stop(&philo->table->table_mute, &philo->table->stop_simulation))
+		//   return(NULL);
+		if (philo->full)
 			break ;
-		ft_eat_routine(philo);
-		printf("%b\n", philo->table->stop_simulation);
-		//if (ft_get_bool(&philo->table->table_mute, &philo->table->stop_simulation))
-		//    break ;
-		printf("%ld %d is sleeping\n", get_current_time(philo->table), philo->philo_id);
-		ft_usleep(philo->table->time_to_sleep, philo->table);
-		ft_philo_thinks(philo);
+		if (ft_get_bool(&philo->table->table_mute, &philo->table->stop_simulation) == true)
+		{
+		    printf("true: %d\n", ft_get_stop(&philo->table->table_mute, &philo->table->stop_simulation));
+		    break ;
+		}
+		else
+		{
+		  ft_eat_routine(philo);
+		  printf("false: %d\n", ft_get_stop(&philo->table->table_mute, &philo->table->stop_simulation));
+		  printf("%ld %d is sleeping\n", get_current_time(philo->table), philo->philo_id);
+		  ft_usleep(philo->table->time_to_sleep, philo->table);
+		  ft_philo_thinks(philo);
+		}
 	//	ft_set_bool(&philo->table->table_mute, &philo->table->stop_simulation, true);
 	}
 	return (NULL);

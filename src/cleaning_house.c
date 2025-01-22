@@ -18,8 +18,8 @@ void	washing_dishes(t_table *table)
 	}
 	kickoff_the_clients(table);
 	ft_mutex_handler(&table->table_mute, DESTROY);
-	ft_mutex_handler(&table->monitor->monitor_mute, DESTROY);
-	free(table->monitor);
+	//ft_mutex_handler(&table->monitor->monitor_mute, DESTROY);
+	//free(table->monitor);
 	free(table);
 }
 

@@ -10,13 +10,22 @@
 #include <stdbool.h>
 
 typedef struct s_table t_table;
-typedef struct s_monitor t_monitor;
 
 typedef struct s_fork
 {
 	int				fork_id;
 	pthread_mutex_t	fork;
 }				t_fork;
+
+typedef enum e_printfmutex
+{
+    EAT,
+    SLEEP,
+    THINKING,
+    LEFT_FORK,
+    RIGHT_FORK,
+    DEAD,
+}               t_printf_mutex;
 
 typedef enum e_code
 {
@@ -37,8 +46,8 @@ typedef struct s_philo
 	t_fork			*right_fork;
 	pthread_t		thread_id;
 	t_table			*table;
-	t_monitor		*monitor;
 	pthread_mutex_t	philo_mute;
+	pthread_mutex_t print;
 	bool			sync_phi;
 	bool            dead;
 }					t_philo;
@@ -58,18 +67,9 @@ typedef struct s_table
 	t_fork			*forks;
 	t_philo			*philos;
 	int				shared_fork;
-	t_monitor		*monitor;
+	pthread_t		monitor;
 }				t_table;
 
-typedef struct s_monitor
-{
-	pthread_t		monitor_thread;
-	pthread_mutex_t	monitor_mute;
-	t_table			**table;
-	t_philo			*philo;
-	bool			death;
-	long			meal_count;
-}				t_monitor;
 
 //init_threads
 void	ft_create_thread(t_table *table);
@@ -109,6 +109,7 @@ int check_args(char **av);
 void	print_philo_data(long i, t_table *table);
 bool	ft_check_philo_nr(t_table *table);
 void	init_table(char **av, t_table **table);
+void    printf_mutex(t_printf_mutex status, t_philo *philo);
 
 //init_table
 t_philo	create_philo(t_philo *philos, long i, t_table *table);
@@ -118,7 +119,6 @@ void	seating_the_gentlemans(t_table *table, t_philo **philo);
 
 int	ft_timez(long eat, long sleep, long die);
 void	*monitor_routine(void *gamela);
-void create_monitor(t_monitor **monitor, t_table *table);
 
 //get_and_set
 void	ft_set_bool(pthread_mutex_t *mutex, bool *des, bool val);
@@ -132,5 +132,7 @@ void    ft_one_more_seated(pthread_mutex_t *mutex, long *philo_seated);
 bool    all_philo_seats(pthread_mutex_t *mutex, long *philos, long philo_nr);
 
 bool    found_dead_philo(t_philo *philo);
+void    ft_set_stop(pthread_mutex_t *mutex, bool *stop, bool val);
+bool    ft_get_stop(pthread_mutex_t *mutex, bool *stop);
 
 #endif

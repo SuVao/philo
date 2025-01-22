@@ -5,7 +5,6 @@ t_philo	create_philo(t_philo *philos, long i, t_table *table)
 	philos[i].philo_id = i + 1;
 	philos[i].full = false;
 	philos[i].thread_id = i;
-	philos[i].monitor = table->monitor;
 	philos[i].sync_phi = false;
 	philos[i].table = table;
 	//table->philos[i].table = table;
@@ -19,6 +18,7 @@ t_philo	create_philo(t_philo *philos, long i, t_table *table)
 		philos[i].right_fork = &table->forks[(i + 1) % table->nr_philo];
 	}
 	ft_mutex_handler(&philos[i].philo_mute, INIT);
+	ft_mutex_handler(&philos[i].print, INIT);
 	return (philos[i]);
 }
 

@@ -30,7 +30,6 @@ void	init_philo_opc(char **av)
 	puting_the_forks_on_the_table(table, &forks_table);
 	if (forks_table == NULL)
 		return ;
-	create_monitor(&table->monitor, table);
 	table->philos = philo;
 	table->forks = forks_table;
 	seating_the_gentlemans(table, &philo);
