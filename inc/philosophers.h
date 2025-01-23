@@ -47,7 +47,6 @@ typedef struct s_philo
 	pthread_t		thread_id;
 	t_table			*table;
 	pthread_mutex_t	philo_mute;
-	pthread_mutex_t print;
 	bool			sync_phi;
 	bool            dead;
 }					t_philo;
@@ -55,6 +54,7 @@ typedef struct s_philo
 typedef struct s_table
 {
 	pthread_mutex_t	table_mute;
+	pthread_mutex_t print;
 	bool			sync;
 	bool			stop_simulation;
 	long			start_time;

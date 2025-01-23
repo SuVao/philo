@@ -1,5 +1,6 @@
 #include "../inc/philosophers.h"
 #include <bits/pthreadtypes.h>
+#include <pthread.h>
 #include <stdbool.h>
 
 void	mutex_threads(t_table *table, t_philo *philo)
@@ -12,6 +13,12 @@ void	mutex_threads(t_table *table, t_philo *philo)
 	ft_create_thread(table);
 	ft_set_bool(&table->table_mute, &philo->sync_phi, true);
 	ft_thread_join(table);
+	ft_set_bool(&table->table_mute, &table->stop_simulation, true);
+	if (pthread_join(table->monitor, NULL) != 0)
+	{
+		printf("Error: failed to join thread\n");
+		return ;
+	}
 }
 
 void	ft_mutex_handler(pthread_mutex_t *mutex, t_code code)
@@ -52,52 +59,19 @@ void	*dog_life(void *philo1)
         //  if (ft_get_stop(&philo->table->table_mute, &philo->table->stop_simulation))
 		//   return(NULL);
 		if (philo->full)
+		{
+		    ft_set_stop(&philo->table->table_mute, &philo->table->stop_simulation, true);
 			break ;
-		if (ft_get_bool(&philo->table->table_mute, &philo->table->stop_simulation) == true)
-		{
-		    printf("true: %d\n", ft_get_stop(&philo->table->table_mute, &philo->table->stop_simulation));
+		}
+		ft_eat_routine(philo);
+		if (ft_get_bool(&philo->philo_mute, &philo->dead))
 		    break ;
-		}
-		else
-		{
-		  ft_eat_routine(philo);
-		  printf("false: %d\n", ft_get_stop(&philo->table->table_mute, &philo->table->stop_simulation));
-		  printf("%ld %d is sleeping\n", get_current_time(philo->table), philo->philo_id);
-		  ft_usleep(philo->table->time_to_sleep, philo->table);
-		  ft_philo_thinks(philo);
-		}
+		if (ft_get_bool(&philo->table->table_mute, &philo->table->stop_simulation) )
+		    break ;
+		printf_mutex(SLEEP, philo);
+		ft_usleep(philo->table->time_to_sleep, philo->table);
+		ft_philo_thinks(philo);
 	//	ft_set_bool(&philo->table->table_mute, &philo->table->stop_simulation, true);
 	}
 	return (NULL);
-}
-
-void	ft_lock_fork(long i, t_table *table)
-{
-	long	time;
-
-	time = get_current_time(table);
-    if (!table || !table->forks)
-	{
-		printf("Error: table or forks is NULL\n");
-		return;
-	}
-	printf("time:%ld philo id:%ld has taken the fork:%d\n", time, i, table->philos[i].philo_id);
-	printf("time:%ld philo id:%d has taken the fork:%ld\n", time, \
-			table->philos[i].philo_id, (i + 1) % table->nr_philo);
-	ft_mutex_handler(&table->forks[i].fork, LOCK);
-	ft_mutex_handler(&table->forks[(i + 1) % table->nr_philo].fork, LOCK);
-
-}
-
-void	ft_unlock_fork(long i, t_table *table)
-{
-	if (!table || !table->forks)
-	{
-		printf("Error: table or forks is NULL\n");
-		return;
-	}
-	ft_mutex_handler(&table->forks[i].fork, UNLOCK);
-	ft_mutex_handler(&table->forks[(i + 1) % table->nr_philo].fork, UNLOCK);
-	printf("%d has released forks %ld and %ld\n", \
-				table->philos[i].philo_id, i, (i + 1) % table->nr_philo);
 }

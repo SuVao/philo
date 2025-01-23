@@ -1,17 +1,5 @@
 #include "../inc/philosophers.h"
 
-//void create_monitor(t_monitor **monitor, t_table *table)
-//{
-//	(*monitor) = malloc(sizeof(t_monitor));
-//	if (!monitor)
-//		return ;
-//	(*monitor)->monitor_thread = 0;
-//	(*monitor)->death = false;
-//	(*monitor)->meal_count = 0;
-//	(*monitor)->table = &table;
-//	ft_mutex_handler(&(*monitor)->monitor_mute, INIT);
-//}
-
 bool    found_dead_philo(t_philo *philo)
 {
     long t_die;
@@ -71,14 +59,14 @@ void	*monitor_routine(void *table1)
 	    i = 0;
 		while (i < table->nr_philo && !ft_get_stop(&table->table_mute, &table->stop_simulation))
 		{
+		    if (ft_get_bool(&table->philos->philo_mute, &table->philos->dead))
+		        break ;
 		    if (found_dead_philo(table->philos + i))
 			{
-			    printf("time:%ld", get_current_time(table) - table->start_time);
-
-                printf_mutex(DEAD, &table->philos[i]);
+                ft_mutex_handler(&table->print, LOCK);
                 ft_set_stop(&table->table_mute, &table->stop_simulation, true);
-                //printf("%b\n", ft_get_stop(&table->table_mute, &table->stop_simulation));
-                //break ;
+                printf_mutex(DEAD, &table->philos[i]);
+                ft_mutex_handler(&table->print, UNLOCK);
 			}
 		    i++;
 		}

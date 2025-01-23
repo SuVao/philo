@@ -64,11 +64,15 @@ void	init_table(char **av, t_table **table)
     }
     (*table)->sync = false;
     ft_mutex_handler(&(*table)->table_mute, INIT);
+    ft_mutex_handler(&(*table)->print, INIT);
+
     (*table)->stop_simulation = false;
     (*table)->nr_philo = ft_atol(av[1]);
     (*table)->time_to_die = ft_atol(av[2]);
     (*table)->time_to_eat = ft_atol(av[3]);
     (*table)->time_to_sleep = ft_atol(av[4]);
+    (*table)->philo_seated = 0;
+    (*table)->start_time = 0;
     if (!ft_timez(ft_atol(av[2]), ft_atol(av[3]), ft_atol(av[4])))
     	return ;
     if (av[5] == NULL)
@@ -77,19 +81,24 @@ void	init_table(char **av, t_table **table)
     	return ;
     else
         (*table)->nb_of_meals = ft_atol(av[5]);
-    (*table)->philo_seated = 0;
+
 }
 
 void    printf_mutex(t_printf_mutex status, t_philo *philo)
 {
     long time;
 
-    time = get_current_time(philo->table) - philo->table->start_time;
-    ft_mutex_handler(&philo->print, LOCK);
+    time = get_current_time(philo->table);
+    if (philo->full)
+        return ;
+    write(1, "ola\n", 5);
+    ft_mutex_handler(&philo->table->print, LOCK);
+    write(1, "ola1\n", 6);
+
     if ((LEFT_FORK == status || RIGHT_FORK == status) && \
         !ft_get_stop(&philo->table->table_mute, &philo->table->stop_simulation))
-        printf("%ld %d take the fork %d\n", time,\
-            philo->philo_id, philo->left_fork->fork_id);
+        printf("%ld %d take the fork\n", time,\
+            philo->philo_id);
     if (EAT == status && \
         !ft_get_stop(&philo->table->table_mute, &philo->table->stop_simulation))
         printf("%ld %d is eating\n", time, philo->philo_id);
@@ -100,6 +109,8 @@ void    printf_mutex(t_printf_mutex status, t_philo *philo)
         !ft_get_stop(&philo->table->table_mute, &philo->table->stop_simulation))
         printf("%ld %d is thinking\n", time, philo->philo_id);
     if (DEAD == status)
-        printf("%ld %d is dead\n", time, philo->philo_id);
-    ft_mutex_handler(&philo->print, UNLOCK);
+        printf("%ld philo %d is dead\n", time, philo->philo_id);
+    ft_mutex_handler(&philo->table->print, UNLOCK);
+    write(1, "adeus\n", 7);
+
 }

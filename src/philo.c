@@ -27,6 +27,7 @@ void	init_philo_opc(char **av)
 		return ;
 	}
 	table->start_time = get_current_time(table);
+	//printf("time on philo.c %ld\n", table->start_time);
 	puting_the_forks_on_the_table(table, &forks_table);
 	if (forks_table == NULL)
 		return ;
@@ -41,7 +42,7 @@ int main(int ac, char **av)
 {
     if (ft_atol(av[1]) == 1)
     {
-        printf("the philo is dead!\n");
+        printf("%s the philo is dead!\n", av[2]);
         return (1);
     }
 	if (ac == 6 || ac == 5)

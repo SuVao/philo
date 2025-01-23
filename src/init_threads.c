@@ -63,9 +63,4 @@ void	ft_thread_join(t_table *table)
 		}
 		i++;
 	}
-	if (pthread_join(table->monitor, NULL) != 0)
-	{
-		printf("Error: failed to join thread\n");
-		return ;
-	}
 }
