@@ -9,19 +9,26 @@ void    ft_philo_thinks(t_philo *philo)
 
 void    ft_eat_routine(t_philo *philo)
 {
+    long    meals;
+    long    time;
+
+    time = get_current_time(philo->table);
+    meals = ft_get_long(&philo->table->table_mute, &philo->nb_philo_meals);
     ft_mutex_handler(&philo->left_fork->fork , LOCK);
     printf_mutex(LEFT_FORK, philo);
     ft_mutex_handler(&philo->right_fork->fork , LOCK);
     printf_mutex(RIGHT_FORK, philo);
-    ft_set_long(&philo->philo_mute, &philo->last_meal_time, get_current_time(philo->table));
-    ft_set_long(&philo->philo_mute, &philo->nb_philo_meals, philo->nb_philo_meals + 1);
+    ft_set_long(&philo->philo_mute, &philo->last_meal_time, time);
+    ft_set_long(&philo->philo_mute, &philo->nb_philo_meals, meals++);
+    write(1, "estou aqui\n", 12);
     printf_mutex(EAT, philo);
     ft_usleep(philo->table->time_to_eat, philo->table);
-    if (philo->nb_philo_meals > 0 && philo->nb_philo_meals == philo->table->nb_of_meals)
+
+    ft_mutex_handler(&philo->left_fork->fork , UNLOCK);
+    ft_mutex_handler(&philo->right_fork->fork , UNLOCK);
+    if (philo->table->nb_of_meals > 0 && philo->nb_philo_meals == philo->table->nb_of_meals)
     {
         ft_set_bool(&philo->philo_mute, &philo->full, true);
         ft_set_bool(&philo->table->table_mute, &philo->table->stop_simulation, true);
     }
-    ft_mutex_handler(&philo->left_fork->fork , UNLOCK);
-    ft_mutex_handler(&philo->right_fork->fork , UNLOCK);
 }

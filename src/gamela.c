@@ -59,8 +59,8 @@ void	*monitor_routine(void *table1)
 	    i = 0;
 		while (i < table->nr_philo && !ft_get_stop(&table->table_mute, &table->stop_simulation))
 		{
-		    if (ft_get_bool(&table->philos->philo_mute, &table->philos->dead))
-		        break ;
+		    //if (ft_get_bool(&table->philos->philo_mute, &table->philos->dead))
+		    //    break ;
 		    if (found_dead_philo(table->philos + i))
 			{
                 ft_mutex_handler(&table->print, LOCK);

@@ -14,11 +14,6 @@ void	mutex_threads(t_table *table, t_philo *philo)
 	ft_set_bool(&table->table_mute, &philo->sync_phi, true);
 	ft_thread_join(table);
 	ft_set_bool(&table->table_mute, &table->stop_simulation, true);
-	if (pthread_join(table->monitor, NULL) != 0)
-	{
-		printf("Error: failed to join thread\n");
-		return ;
-	}
 }
 
 void	ft_mutex_handler(pthread_mutex_t *mutex, t_code code)
@@ -58,17 +53,20 @@ void	*dog_life(void *philo1)
 	{
         //  if (ft_get_stop(&philo->table->table_mute, &philo->table->stop_simulation))
 		//   return(NULL);
-		if (philo->full)
-		{
-		    ft_set_stop(&philo->table->table_mute, &philo->table->stop_simulation, true);
-			break ;
-		}
+		//if (philo->full)
+		//{
+		//    ft_set_stop(&philo->table->table_mute, &philo->table->stop_simulation, true);
+		//	break ;
+		//}
 		ft_eat_routine(philo);
 		if (ft_get_bool(&philo->philo_mute, &philo->dead))
+		{
 		    break ;
-		if (ft_get_bool(&philo->table->table_mute, &philo->table->stop_simulation) )
-		    break ;
+		}
+		//if (ft_get_bool(&philo->table->table_mute, &philo->table->stop_simulation) )
+		//    break ;
 		printf_mutex(SLEEP, philo);
+
 		ft_usleep(philo->table->time_to_sleep, philo->table);
 		ft_philo_thinks(philo);
 	//	ft_set_bool(&philo->table->table_mute, &philo->table->stop_simulation, true);

@@ -33,3 +33,13 @@ void	ft_set_long(pthread_mutex_t *mutex, long *des, long val)
 	*des = val;
 	ft_mutex_handler(mutex, UNLOCK);
 }
+
+int	ft_get_int(pthread_mutex_t *mutex, int *val)
+{
+	int	val_ret;
+
+	ft_mutex_handler(mutex, LOCK);
+	val_ret = *val;
+	ft_mutex_handler(mutex, UNLOCK);
+	return (val_ret);
+}

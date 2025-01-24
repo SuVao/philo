@@ -28,10 +28,11 @@ void	ft_lock_threads(t_table *table)
 	while (i < table->nr_philo)
 	{
 		ft_mutex_handler(&table->forks[i].fork, LOCK);
+		ft_mutex_handler(&table->philos[i].philo_mute, LOCK);
 		i++;
 	}
-	//ft_mutex_handler(&table->monitor->monitor_mute, LOCK);
-	//ft_mutex_handler(&table->table_mute, LOCK);
+	ft_mutex_handler(&table->print, LOCK);
+	ft_mutex_handler(&table->table_mute, LOCK);
 
 }
 
@@ -43,10 +44,12 @@ void	ft_unlock_threads(t_table *table)
 	while (i < table->nr_philo)
 	{
 		ft_mutex_handler(&table->forks[i].fork, UNLOCK);
+		ft_mutex_handler(&table->philos[i].philo_mute, UNLOCK);
+
 		i++;
 	}
-	//ft_mutex_handler(&table->monitor->monitor_mute, UNLOCK);
-	//ft_mutex_handler(&table->table_mute, UNLOCK);
+	ft_mutex_handler(&table->print, UNLOCK);
+	ft_mutex_handler(&table->table_mute, UNLOCK);
 }
 
 void	ft_thread_join(t_table *table)
@@ -62,5 +65,10 @@ void	ft_thread_join(t_table *table)
 			return ;
 		}
 		i++;
+	}
+	if (pthread_join(table->monitor, NULL) != 0)
+	{
+		printf("Error: failed to join thread\n");
+		return ;
 	}
 }

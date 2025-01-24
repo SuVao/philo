@@ -20,14 +20,6 @@ int check_args(char **av)
 	return (0);
 }
 
-void	print_philo_data(long i, t_table *table)
-{
-	printf("philo id: %d\n", table->philos[i].philo_id);
-	printf("philo left_fork: %d\n", table->philos[(i + 1) % table->nr_philo].philo_id);
-	printf("philo right_fork: %d\n", table->philos[i].philo_id);
-	printf("philo thread_id: %lu\n", table->philos[i].thread_id);
-}
-
 bool	ft_check_philo_nr(t_table *table)
 {
 	if (table->nr_philo == 1)
@@ -88,7 +80,7 @@ void    printf_mutex(t_printf_mutex status, t_philo *philo)
 {
     long time;
 
-    time = get_current_time(philo->table);
+    time = get_current_time(philo->table) - philo->table->start_time;
     if (philo->full)
         return ;
     write(1, "ola\n", 5);
@@ -98,18 +90,18 @@ void    printf_mutex(t_printf_mutex status, t_philo *philo)
     if ((LEFT_FORK == status || RIGHT_FORK == status) && \
         !ft_get_stop(&philo->table->table_mute, &philo->table->stop_simulation))
         printf("%ld %d take the fork\n", time,\
-            philo->philo_id);
+            ft_get_int(&philo->table->table_mute, &philo->philo_id));
     if (EAT == status && \
         !ft_get_stop(&philo->table->table_mute, &philo->table->stop_simulation))
-        printf("%ld %d is eating\n", time, philo->philo_id);
+        printf("%ld %d is eating\n", time, ft_get_int(&philo->table->table_mute, &philo->philo_id));
     if (SLEEP == status && \
         !ft_get_stop(&philo->table->table_mute, &philo->table->stop_simulation))
-        printf("%ld %d is sleeping\n", time, philo->philo_id);
+        printf("%ld %d is sleeping\n", time, ft_get_int(&philo->table->table_mute, &philo->philo_id));
     if (THINKING == status && \
         !ft_get_stop(&philo->table->table_mute, &philo->table->stop_simulation))
-        printf("%ld %d is thinking\n", time, philo->philo_id);
+        printf("%ld %d is thinking\n", time, ft_get_int(&philo->table->table_mute, &philo->philo_id));
     if (DEAD == status)
-        printf("%ld philo %d is dead\n", time, philo->philo_id);
+        printf("%ld philo %d is dead\n", time, ft_get_int(&philo->table->table_mute, &philo->philo_id));
     ft_mutex_handler(&philo->table->print, UNLOCK);
     write(1, "adeus\n", 7);
 

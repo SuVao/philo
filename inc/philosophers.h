@@ -125,6 +125,7 @@ void	ft_set_bool(pthread_mutex_t *mutex, bool *des, bool val);
 bool	ft_get_bool( pthread_mutex_t *mutex, bool *val);
 long	ft_get_long(pthread_mutex_t *mutex, long *val);
 void	ft_set_long(pthread_mutex_t *mutex, long *des, long val);
+int	ft_get_int(pthread_mutex_t *mutex, int *val);
 
 void ft_eat_routine(t_philo *philo);
 void    ft_philo_thinks(t_philo *philo);
