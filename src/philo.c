@@ -9,7 +9,9 @@ void	init_philo_opc(char **av)
     table = NULL;
     philo = NULL;
     forks_table = NULL;
-	if (check_args(av) == 1)
+    //for(int i = 0;av[i]; i++)
+    //    printf("%s\n", av[i]);
+	if (check_args(av) == 1 && !check_av(av))
 	{
 		printf("Error: wrong arguments\n");
 		return ;

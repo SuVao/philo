@@ -12,7 +12,7 @@ bool    found_dead_philo(t_philo *philo)
             ft_get_long(&philo->philo_mute, &philo->last_meal_time);
     t_die = ft_get_long(&philo->philo_mute, &philo->table->time_to_die);
 
-    if (time > t_die)
+    if (time < t_die)
         return (true);
     return (false);
 }

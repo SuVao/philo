@@ -135,5 +135,6 @@ bool    all_philo_seats(pthread_mutex_t *mutex, long *philos, long philo_nr);
 bool    found_dead_philo(t_philo *philo);
 void    ft_set_stop(pthread_mutex_t *mutex, bool *stop, bool val);
 bool    ft_get_stop(pthread_mutex_t *mutex, bool *stop);
+bool    check_av(char **av);
 
 #endif

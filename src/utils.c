@@ -9,6 +9,8 @@ int check_args(char **av)
 	while (av[i])
 	{
 		j = 0;
+		if (av[i] == NULL)
+		    return (1);
 		while (av[i][j])
 		{
 			if (!is_digit(av[i][j]))
@@ -44,6 +46,20 @@ int	ft_timez(long eat, long sleep, long die)
 	if (die <= 1)
 		return (0);
 	return (1);
+}
+
+bool    check_av(char **av)
+{
+    int i;
+
+    i = 0;
+    while (av[i])
+    {
+        if (av[i] == 0)
+            return (false);
+        i++;
+    }
+    return (true);
 }
 
 void	init_table(char **av, t_table **table)
