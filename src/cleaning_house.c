@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cleaning_house.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pesilva- <pesilva-@student.42lisboa.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/25 19:06:38 by pesilva-          #+#    #+#             */
+/*   Updated: 2025/01/25 19:06:49 by pesilva-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../inc/philosophers.h"
 
@@ -19,8 +30,6 @@ void	washing_dishes(t_table *table)
 	kickoff_the_clients(table);
 	ft_mutex_handler(&table->table_mute, DESTROY);
 	ft_mutex_handler(&table->print, DESTROY);
-	//ft_mutex_handler(&table->monitor->monitor_mute, DESTROY);
-	//free(table->monitor);
 	free(table);
 }
 

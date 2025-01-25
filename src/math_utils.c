@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   math_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pesilva- <pesilva-@student.42lisboa.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/25 19:17:23 by pesilva-          #+#    #+#             */
+/*   Updated: 2025/01/25 19:17:24 by pesilva-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/philosophers.h"
 
-int is_digit(char c)
+int	is_digit(char c)
 {
 	return (c <= '9' || c >= '0');
 }
 
-long ft_atol(char *s)
+long	ft_atol(char *s)
 {
 	int	i;
 	int sign;
@@ -41,7 +53,7 @@ int	ft_usleep(long milliseconds, t_table *table)
 	return (0);
 }
 
-long get_current_time(t_table *table)
+long	get_current_time(t_table *table)
 {
 	struct timeval	time;
 	long			current_time;

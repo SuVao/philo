@@ -1,16 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pesilva- <pesilva-@student.42lisboa.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/25 19:04:50 by pesilva-          #+#    #+#             */
+/*   Updated: 2025/01/25 19:17:35 by pesilva-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/philosophers.h"
 
 void	init_philo_opc(char **av)
 {
-    t_table     *table;
-    t_philo     *philo;
-    t_fork      *forks_table;
+	t_table	*table;
+	t_philo	*philo;
+	t_fork	*forks_table;
 
-    table = NULL;
-    philo = NULL;
-    forks_table = NULL;
-    //for(int i = 0;av[i]; i++)
-    //    printf("%s\n", av[i]);
+	table = NULL;
+	philo = NULL;
+	forks_table = NULL;
 	if (check_args(av) == 1 && !check_av(av))
 	{
 		printf("Error: wrong arguments\n");
@@ -29,7 +39,6 @@ void	init_philo_opc(char **av)
 		return ;
 	}
 	table->start_time = get_current_time(table);
-	//printf("time on philo.c %ld\n", table->start_time);
 	puting_the_forks_on_the_table(table, &forks_table);
 	if (forks_table == NULL)
 		return ;
@@ -40,13 +49,13 @@ void	init_philo_opc(char **av)
 	washing_dishes(table);
 }
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
-    if (ft_atol(av[1]) == 1)
-    {
-        printf("%s the philo is dead!\n", av[2]);
-        return (1);
-    }
+	if (ft_atol(av[1]) == 1)
+	{
+		printf("%s the philo is dead!\n", av[2]);
+		return (1);
+	}
 	if (ac == 6 || ac == 5)
 		init_philo_opc(av);
 	else

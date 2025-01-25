@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_threads.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pesilva- <pesilva-@student.42lisboa.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/25 19:17:15 by pesilva-          #+#    #+#             */
+/*   Updated: 2025/01/25 19:17:16 by pesilva-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/philosophers.h"
 
 void	ft_create_thread(t_table *table)
@@ -59,7 +71,7 @@ void	ft_thread_join(t_table *table)
 	i = 0;
 	while (i < table->nr_philo && !ft_get_bool(&table->table_mute, &table->stop_simulation))
 	{
-	    if (ft_get_bool(&table->table_mute, &table->stop_simulation))
+		if (ft_get_bool(&table->table_mute, &table->stop_simulation))
 			break;
 		if (pthread_join(table->philos[i].thread_id, NULL) != 0)
 		{

@@ -22,7 +22,7 @@ t_philo	create_philo(t_philo *philos, long i, t_table *table)
 
 t_fork	create_forks(t_fork *forks_table, long i, t_table *table)
 {
-    (void)table;
+	(void)table;
 	forks_table[i].fork_id = i;
 	ft_mutex_handler(&forks_table[i].fork, INIT);
 	return (forks_table[i]);
