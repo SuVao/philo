@@ -48,5 +48,5 @@ long get_current_time(t_table *table)
 
 	gettimeofday(&time, NULL);
 	current_time = time.tv_sec * 1000 + time.tv_usec / 1000;
-	return (current_time - table->start_time);
+	return (current_time - ft_get_long(&table->table_mute, &table->start_time));
 }

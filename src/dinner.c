@@ -67,7 +67,7 @@ void	*dog_life(void *philo1)
 		//    break ;
 		printf_mutex(SLEEP, philo);
 
-		ft_usleep(philo->table->time_to_sleep, philo->table);
+		ft_usleep(ft_get_long(&philo->table->table_mute, &philo->table->time_to_sleep), philo->table);
 		ft_philo_thinks(philo);
 	//	ft_set_bool(&philo->table->table_mute, &philo->table->stop_simulation, true);
 	}

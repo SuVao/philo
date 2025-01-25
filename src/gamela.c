@@ -10,7 +10,7 @@ bool    found_dead_philo(t_philo *philo)
 
     time = get_current_time(philo->table) - \
             ft_get_long(&philo->philo_mute, &philo->last_meal_time);
-    t_die = philo->table->time_to_die;
+    t_die = ft_get_long(&philo->philo_mute, &philo->table->time_to_die);
 
     if (time > t_die)
         return (true);
@@ -59,14 +59,10 @@ void	*monitor_routine(void *table1)
 	    i = 0;
 		while (i < table->nr_philo && !ft_get_stop(&table->table_mute, &table->stop_simulation))
 		{
-		    //if (ft_get_bool(&table->philos->philo_mute, &table->philos->dead))
-		    //    break ;
-		    if (found_dead_philo(table->philos + i))
+		    if (!found_dead_philo(table->philos + i))
 			{
-                ft_mutex_handler(&table->print, LOCK);
                 ft_set_stop(&table->table_mute, &table->stop_simulation, true);
                 printf_mutex(DEAD, &table->philos[i]);
-                ft_mutex_handler(&table->print, UNLOCK);
 			}
 		    i++;
 		}

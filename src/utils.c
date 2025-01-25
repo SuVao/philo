@@ -80,29 +80,30 @@ void    printf_mutex(t_printf_mutex status, t_philo *philo)
 {
     long time;
 
-    time = get_current_time(philo->table) - philo->table->start_time;
+    time = get_current_time(philo->table);
     if (philo->full)
         return ;
-    write(1, "ola\n", 5);
+    //write(1, "ola\n", 5);
+    //printf("full: %b\n", philo->full);
     ft_mutex_handler(&philo->table->print, LOCK);
-    write(1, "ola1\n", 6);
+   // write(1, "ola1\n", 6);
 
     if ((LEFT_FORK == status || RIGHT_FORK == status) && \
         !ft_get_stop(&philo->table->table_mute, &philo->table->stop_simulation))
         printf("%ld %d take the fork\n", time,\
-            ft_get_int(&philo->table->table_mute, &philo->philo_id));
+            ft_get_int(&philo->philo_mute, &philo->philo_id));
     if (EAT == status && \
         !ft_get_stop(&philo->table->table_mute, &philo->table->stop_simulation))
-        printf("%ld %d is eating\n", time, ft_get_int(&philo->table->table_mute, &philo->philo_id));
+        printf("%ld %d is eating\n", time, ft_get_int(&philo->philo_mute, &philo->philo_id));
     if (SLEEP == status && \
         !ft_get_stop(&philo->table->table_mute, &philo->table->stop_simulation))
-        printf("%ld %d is sleeping\n", time, ft_get_int(&philo->table->table_mute, &philo->philo_id));
+        printf("%ld %d is sleeping\n", time, ft_get_int(&philo->philo_mute, &philo->philo_id));
     if (THINKING == status && \
         !ft_get_stop(&philo->table->table_mute, &philo->table->stop_simulation))
-        printf("%ld %d is thinking\n", time, ft_get_int(&philo->table->table_mute, &philo->philo_id));
+        printf("%ld %d is thinking\n", time, ft_get_int(&philo->philo_mute, &philo->philo_id));
     if (DEAD == status)
-        printf("%ld philo %d is dead\n", time, ft_get_int(&philo->table->table_mute, &philo->philo_id));
+        printf("%ld philo %d is dead\n", time, ft_get_int(&philo->philo_mute, &philo->philo_id));
     ft_mutex_handler(&philo->table->print, UNLOCK);
-    write(1, "adeus\n", 7);
+  //  write(1, "adeus\n", 7);
 
 }
