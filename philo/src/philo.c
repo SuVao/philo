@@ -6,7 +6,7 @@
 /*   By: pesilva- <pesilva-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 19:04:50 by pesilva-          #+#    #+#             */
-/*   Updated: 2025/01/26 12:17:43 by pesilva-         ###   ########.fr       */
+/*   Updated: 2025/01/26 16:15:14 by pesilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,21 @@ void	init_philo_opc(char **av)
 
 int	main(int ac, char **av)
 {
+    if (ac != 5 && ac != 6)
+    {
+        printf("Wrong number of arguments!\n");
+        return (1);
+    }
 	if (ft_atol(av[1]) == 1)
 	{
 		printf("%s the philo is dead!\n", av[2]);
 		return (1);
 	}
 	if (ac == 6 || ac == 5)
+	{
+
 		init_philo_opc(av);
+	}
 	else
 	{
 		printf("Error: wrong number of arguments\n");

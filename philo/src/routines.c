@@ -6,7 +6,7 @@
 /*   By: pesilva- <pesilva-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 19:06:23 by pesilva-          #+#    #+#             */
-/*   Updated: 2025/01/26 10:27:07 by pesilva-         ###   ########.fr       */
+/*   Updated: 2025/01/26 16:08:16 by pesilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	ft_eat_routine(t_philo *philo)
 		ft_get_long(&philo->philo_mute, &philo->nb_philo_meals) + 1);
 	printf_mutex(EAT, philo);
 	ft_usleep(philo->table->time_to_eat, philo->table);
+	//printf("table meal: %ld\n", philo->table->nb_of_meals);
+	//printf("philo meal: %ld\n", philo->nb_philo_meals);
 	if (ft_get_long(&philo->table->table_mute, &philo->table->nb_of_meals) > 0 \
 		&& philo->nb_philo_meals == philo->table->nb_of_meals)
 	{
