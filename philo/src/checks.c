@@ -40,7 +40,10 @@ bool	check_av(char **av)
 	while (av[i])
 	{
 		if (av[i] == 0)
+		{
+		    printf("Void argument\n");
 			return (false);
+		}
 		i++;
 	}
 	return (true);
@@ -70,12 +73,7 @@ int	check_args(char **av)
 
 bool	ft_check_philo_nr(t_table *table)
 {
-	if (table->nr_philo == 1)
-	{
-		printf("the philo is dead\n");
-		return (false);
-	}
-	else if (table->nr_philo < 1)
+	if (table->nr_philo < 1)
 	{
 		printf("Invalid nunber of philos\n");
 		return (false);

@@ -27,13 +27,13 @@ void	init_philo_opc(char **av)
 	table = NULL;
 	philo = NULL;
 	forks_table = NULL;
-	if (check_args(av) == 1 && !check_av(av))
+	if (check_args(av) == 1 || !check_av(av))
 	{
 		printf("Error: wrong arguments\n");
 		return ;
 	}
 	init_table(av, &table);
-	if (!ft_check_philo_nr(table) || !ft_check_time(table) || \
+	if (!ft_check_philo_nr(table) || !ft_check_time(table) || ft_atol(av[1]) == 1 || \
 		!ft_timez(table->time_to_die, table->time_to_sleep, table->time_to_eat))
 	{
 		free(table);
@@ -54,11 +54,6 @@ int	main(int ac, char **av)
         printf("Wrong number of arguments!\n");
         return (1);
     }
-	if (ft_atol(av[1]) == 1)
-	{
-		printf("%s the philo is dead!\n", av[2]);
-		return (1);
-	}
 	if (ac == 6 || ac == 5)
 	{
 

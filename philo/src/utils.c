@@ -14,11 +14,11 @@
 
 int	ft_timez(long eat, long sleep, long die)
 {
-	if (eat <= 1)
+	if (eat <= 60)
 		return (0);
-	if (sleep <= 1)
+	if (sleep <= 60)
 		return (0);
-	if (die <= 1)
+	if (die <= 60)
 		return (0);
 	return (1);
 }
@@ -45,10 +45,13 @@ void	init_table(char **av, t_table **table)
 		return ;
 	if (av[5] == NULL)
 		(*table)->nb_of_meals = LLONG_MAX;
-	else if (ft_atol(av[5]) == 0)
-		return ;
 	else
 		(*table)->nb_of_meals = ft_atol(av[5]);
+	if (ft_atol(av[1]) == 1)
+	{
+	    printf("the philo is dead\n");
+		return;
+	}
 }
 
 void	ft_dead(t_philo *philo, long time)

@@ -14,7 +14,7 @@
 
 int	is_digit(char c)
 {
-	return (c <= '9' || c >= '0');
+	return (c <= '9' && c >= '0');
 }
 
 long	ft_atol(char *s)
