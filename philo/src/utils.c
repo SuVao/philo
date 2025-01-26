@@ -6,48 +6,11 @@
 /*   By: pesilva- <pesilva-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 19:10:32 by pesilva-          #+#    #+#             */
-/*   Updated: 2025/01/26 10:23:07 by pesilva-         ###   ########.fr       */
+/*   Updated: 2025/01/26 12:10:04 by pesilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philosophers.h"
-
-int	check_args(char **av)
-{
-	int	i;
-	int	j;
-
-	i = 1;
-	while (av[i])
-	{
-		j = 0;
-		if (av[i] == NULL)
-			return (1);
-		while (av[i][j])
-		{
-			if (!is_digit(av[i][j]))
-				return (1);
-			j++;
-		}
-		i++;
-	}
-	return (0);
-}
-
-bool	ft_check_philo_nr(t_table *table)
-{
-	if (table->nr_philo == 1)
-	{
-		printf("the philo is dead\n");
-		return (false);
-	}
-	else if (table->nr_philo < 1)
-	{
-		printf("Invalid nunber of philos\n");
-		return (false);
-	}
-	return (true);
-}
 
 int	ft_timez(long eat, long sleep, long die)
 {
@@ -58,20 +21,6 @@ int	ft_timez(long eat, long sleep, long die)
 	if (die <= 1)
 		return (0);
 	return (1);
-}
-
-bool	check_av(char **av)
-{
-	int	i;
-
-	i = 0;
-	while (av[i])
-	{
-		if (av[i] == 0)
-			return (false);
-		i++;
-	}
-	return (true);
 }
 
 void	init_table(char **av, t_table **table)
@@ -102,6 +51,18 @@ void	init_table(char **av, t_table **table)
 		(*table)->nb_of_meals = ft_atol(av[5]);
 }
 
+void	ft_dead(t_philo *philo, long time)
+{
+	printf("%ld philo %d is dead\n", time, \
+		ft_get_int(&philo->philo_mute, &philo->philo_id));
+}
+
+void	ft_think(t_philo *philo, long time)
+{
+	printf("%ld %d is thinking\n", time, \
+		ft_get_int(&philo->philo_mute, &philo->philo_id));
+}
+
 void	printf_mutex(t_printf_mutex status, t_philo *philo)
 {
 	long	time;
@@ -116,17 +77,16 @@ void	printf_mutex(t_printf_mutex status, t_philo *philo)
 			ft_get_int(&philo->philo_mute, &philo->philo_id));
 	if (EAT == status && \
 		!ft_get_stop(&philo->table->table_mute, &philo->table->stop_simulation))
-		printf("%ld %d is eating\n", time, ft_get_int(&philo->philo_mute, &philo->philo_id));
+		printf("%ld %d is eating\n", time, \
+				ft_get_int(&philo->philo_mute, &philo->philo_id));
 	if (SLEEP == status && \
 		!ft_get_stop(&philo->table->table_mute, &philo->table->stop_simulation))
 		printf("%ld %d is sleeping\n", time, \
 			ft_get_int(&philo->philo_mute, &philo->philo_id));
 	if (THINKING == status && \
 		!ft_get_stop(&philo->table->table_mute, &philo->table->stop_simulation))
-		printf("%ld %d is thinking\n", time, \
-		ft_get_int(&philo->philo_mute, &philo->philo_id));
+		ft_think(philo, time);
 	if (DEAD == status)
-		printf("%ld philo %d is dead\n", time, \
-				ft_get_int(&philo->philo_mute, &philo->philo_id));
+		ft_dead(philo, time);
 	ft_mutex_handler(&philo->table->print, UNLOCK);
 }

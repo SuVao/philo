@@ -6,7 +6,7 @@
 /*   By: pesilva- <pesilva-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 19:06:31 by pesilva-          #+#    #+#             */
-/*   Updated: 2025/01/25 19:06:32 by pesilva-         ###   ########.fr       */
+/*   Updated: 2025/01/26 12:08:38 by pesilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,57 @@ bool	ft_check_time(t_table *table)
 	if (table->time_to_sleep < 59)
 	{
 		printf("Error: time to sleep must be at least 60\n");
+		return (false);
+	}
+	return (true);
+}
+
+bool	check_av(char **av)
+{
+	int	i;
+
+	i = 0;
+	while (av[i])
+	{
+		if (av[i] == 0)
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
+int	check_args(char **av)
+{
+	int	i;
+	int	j;
+
+	i = 1;
+	while (av[i])
+	{
+		j = 0;
+		if (av[i] == NULL)
+			return (1);
+		while (av[i][j])
+		{
+			if (!is_digit(av[i][j]))
+				return (1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
+bool	ft_check_philo_nr(t_table *table)
+{
+	if (table->nr_philo == 1)
+	{
+		printf("the philo is dead\n");
+		return (false);
+	}
+	else if (table->nr_philo < 1)
+	{
+		printf("Invalid nunber of philos\n");
 		return (false);
 	}
 	return (true);
