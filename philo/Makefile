@@ -1,7 +1,7 @@
 NAME = philo
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g -pthread
 SRC_DIR = ./src
 OBJ_DIR = ./obj
 SRC_FILES = philo.c				\

@@ -62,12 +62,12 @@ void	*dog_life(void *philo1)
 	while (!ft_get_bool(&philo->table->table_mute, \
 						&philo->table->stop_simulation))
 	{
-		if (philo->full || ft_get_long(&philo->table->table_mute, \
+		if (all_full(philo) || ft_get_long(&philo->table->table_mute, \
 			&philo->table->nb_of_meals) == 0)
 			break ;
 		ft_eat_routine(philo);
-		if (ft_get_bool(&philo->philo_mute, &philo->dead))
-			break ;
+		//if (ft_get_bool(&philo->philo_mute, &philo->dead))
+		//	break ;
 		printf_mutex(SLEEP, philo);
 		ft_usleep(ft_get_long(&philo->table->table_mute, \
 					&philo->table->time_to_sleep), philo->table);

@@ -68,11 +68,6 @@ void	ft_thread_join(t_table *table)
 {
 	long	i;
 
-	if (pthread_join(table->monitor, NULL) != 0)
-	{
-		printf("Error: failed to join thread\n");
-		return ;
-	}
 	i = 0;
 	while (i < table->nr_philo && !ft_get_bool(&table->table_mute, \
 			&table->stop_simulation))
@@ -85,5 +80,10 @@ void	ft_thread_join(t_table *table)
 			return ;
 		}
 		i++;
+	}
+	if (pthread_join(table->monitor, NULL) != 0)
+	{
+		printf("Error: failed to join thread\n");
+		return ;
 	}
 }

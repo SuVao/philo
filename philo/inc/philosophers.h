@@ -142,5 +142,6 @@ bool	found_dead_philo(t_philo *philo);
 void	ft_set_stop(pthread_mutex_t *mutex, bool *stop, bool val);
 bool	ft_get_stop(pthread_mutex_t *mutex, bool *stop);
 bool	check_av(char **av);
+bool	all_full(t_philo *philo);
 
 #endif

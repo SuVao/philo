@@ -17,7 +17,7 @@ bool	found_dead_philo(t_philo *philo)
 	long	t_die;
 	long	time;
 
-	if (ft_get_bool(&philo->philo_mute, &philo->full))
+	if (all_full(philo))
 		return (false);
 	time = get_current_time(philo->table) - \
 			ft_get_long(&philo->philo_mute, &philo->last_meal_time);
@@ -65,9 +65,9 @@ void	*monitor_routine(void *table1)
 	while (!all_philo_seats(&table->table_mute, \
 			&table->philo_seated, table->nr_philo))
 		;
+	i = 0;
 	while (!ft_get_stop(&table->table_mute, &table->stop_simulation))
 	{
-		i = 0;
 		while (i < table->nr_philo && !ft_get_stop(&table->table_mute, \
 				&table->stop_simulation))
 		{
