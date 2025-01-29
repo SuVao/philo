@@ -25,6 +25,7 @@ void	ft_create_thread(t_table *table)
 			printf("Error: failed to create thread\n");
 			return ;
 		}
+		ft_set_bool(&table->philos[i].philo_mute, &table->philos[i].sync_phi, true);
 		i++;
 	}
 	if (pthread_create(&table->monitor, NULL, &monitor_routine, table) != 0)
@@ -32,6 +33,7 @@ void	ft_create_thread(t_table *table)
 		printf("Error: failed to create the monitor");
 		return ;
 	}
+
 }
 
 void	ft_lock_threads(t_table *table)
@@ -81,7 +83,7 @@ void	ft_thread_join(t_table *table)
 		}
 		i++;
 	}
-	if (pthread_join(table->monitor, NULL) != 0)
+	if (pthread_detach(table->monitor) != 0)
 	{
 		printf("Error: failed to join thread\n");
 		return ;

@@ -93,7 +93,7 @@ void	*dog_life(void *philo1);
 void	mutex_threads(t_table *table, t_philo *philo);
 void	ft_lock_fork(long i, t_table *table);
 void	ft_unlock_fork(long i, t_table *table);
-void	ft_sync_threads(t_table *table);
+void	ft_sync_threads(t_philo *philos);
 void	ft_mutex_handler(pthread_mutex_t *mutex, t_code code);
 
 //checks

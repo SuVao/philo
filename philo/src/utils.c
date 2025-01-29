@@ -90,6 +90,6 @@ void	printf_mutex(t_printf_mutex status, t_philo *philo)
 		!ft_get_stop(&philo->table->table_mute, &philo->table->stop_simulation))
 		ft_think(philo, time);
 	if (DEAD == status)
-		ft_dead(philo, time);
+		ft_dead(philo, time + ft_get_long(&philo->table->table_mute, &philo->table->time_to_die));
 	ft_mutex_handler(&philo->table->print, UNLOCK);
 }
