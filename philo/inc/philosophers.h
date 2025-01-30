@@ -137,11 +137,13 @@ int		ft_get_int(pthread_mutex_t *mutex, int *val);
 void	ft_eat_routine(t_philo *philo);
 void	ft_philo_thinks(t_philo *philo);
 void	ft_one_more_seated(pthread_mutex_t *mutex, long *philo_seated);
-bool	all_philo_seats(pthread_mutex_t *mutex, long *philos, long philo_nb);
+bool	all_philo_seats(pthread_mutex_t *mutex, long philos, long philo_nb);
 bool	found_dead_philo(t_philo *philo);
 void	ft_set_stop(pthread_mutex_t *mutex, bool *stop, bool val);
 bool	ft_get_stop(pthread_mutex_t *mutex, bool *stop);
 bool	check_av(char **av);
 bool	all_full(t_philo *philo);
+bool	check_gamela(t_table *table, int i);
+void	ft_think(t_philo *philo, long time);
 
 #endif

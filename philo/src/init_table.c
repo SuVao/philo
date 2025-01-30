@@ -15,6 +15,7 @@
 t_philo	create_philo(t_philo *philos, long i, t_table *table)
 {
 	philos[i].philo_id = i + 1;
+	philos[i].last_meal_time = 0;
 	philos[i].full = false;
 	philos[i].thread_id = i;
 	philos[i].sync_phi = false;

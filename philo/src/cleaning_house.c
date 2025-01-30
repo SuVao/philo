@@ -28,9 +28,6 @@ void	washing_dishes(t_table *table)
 		table->forks = NULL;
 	}
 	kickoff_the_clients(table);
-	ft_mutex_handler(&table->table_mute, DESTROY);
-	ft_mutex_handler(&table->print, DESTROY);
-	free(table);
 }
 
 void	kickoff_the_clients(t_table *table)

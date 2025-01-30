@@ -41,7 +41,7 @@ bool	check_av(char **av)
 	{
 		if (av[i] == 0)
 		{
-		    printf("Void argument\n");
+			printf("Void argument\n");
 			return (false);
 		}
 		i++;

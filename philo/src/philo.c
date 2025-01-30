@@ -12,6 +12,18 @@
 
 #include "../inc/philosophers.h"
 
+static bool	checks_table(t_table *table, char **av)
+{
+	if (!ft_check_philo_nr(table) || !ft_check_time(table) || \
+		ft_atol(av[1]) == 1 || !ft_timez(table->time_to_die, \
+		table->time_to_sleep, table->time_to_eat))
+	{
+		free(table);
+		return (false);
+	}
+	return (true);
+}
+
 static void	assigning(t_table **table, t_philo **philo, t_fork **forks)
 {
 	(*table)->philos = *philo;
@@ -33,12 +45,8 @@ void	init_philo_opc(char **av)
 		return ;
 	}
 	init_table(av, &table);
-	if (!ft_check_philo_nr(table) || !ft_check_time(table) || ft_atol(av[1]) == 1 || \
-		!ft_timez(table->time_to_die, table->time_to_sleep, table->time_to_eat))
-	{
-		free(table);
+	if (!checks_table(table, av))
 		return ;
-	}
 	table->start_time = get_current_time(table);
 	puting_the_forks_on_the_table(table, &forks_table);
 	assigning(&table, &philo, &forks_table);
@@ -49,16 +57,13 @@ void	init_philo_opc(char **av)
 
 int	main(int ac, char **av)
 {
-    if (ac != 5 && ac != 6)
-    {
-        printf("Wrong number of arguments!\n");
-        return (1);
-    }
-	if (ac == 6 || ac == 5)
+	if (ac != 5 && ac != 6)
 	{
-
-		init_philo_opc(av);
+		printf("Wrong number of arguments!\n");
+		return (1);
 	}
+	if (ac == 6 || ac == 5)
+		init_philo_opc(av);
 	else
 	{
 		printf("Error: wrong number of arguments\n");

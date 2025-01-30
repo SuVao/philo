@@ -25,7 +25,8 @@ void	ft_create_thread(t_table *table)
 			printf("Error: failed to create thread\n");
 			return ;
 		}
-		ft_set_bool(&table->philos[i].philo_mute, &table->philos[i].sync_phi, true);
+		ft_set_bool(&table->philos[i].philo_mute, \
+			&table->philos[i].sync_phi, true);
 		i++;
 	}
 	if (pthread_create(&table->monitor, NULL, &monitor_routine, table) != 0)
@@ -33,37 +34,25 @@ void	ft_create_thread(t_table *table)
 		printf("Error: failed to create the monitor");
 		return ;
 	}
-
 }
 
-void	ft_lock_threads(t_table *table)
+bool	all_philo_seats(pthread_mutex_t *mutex, long philos, long philo_nr)
 {
-	long	i;
+	bool	ola;
 
-	i = 0;
-	while (i < table->nr_philo)
-	{
-		ft_mutex_handler(&table->forks[i].fork, LOCK);
-		ft_mutex_handler(&table->philos[i].philo_mute, LOCK);
-		i++;
-	}
-	ft_mutex_handler(&table->print, LOCK);
-	ft_mutex_handler(&table->table_mute, LOCK);
+	ola = false;
+	ft_mutex_handler(mutex, LOCK);
+	if (philos == philo_nr)
+		ola = true;
+	ft_mutex_handler(mutex, UNLOCK);
+	return (ola);
 }
 
-void	ft_unlock_threads(t_table *table)
+void	ft_set_stop(pthread_mutex_t *mutex, bool *stop, bool val)
 {
-	long	i;
-
-	i = 0;
-	while (i < table->nr_philo)
-	{
-		ft_mutex_handler(&table->forks[i].fork, UNLOCK);
-		ft_mutex_handler(&table->philos[i].philo_mute, UNLOCK);
-		i++;
-	}
-	ft_mutex_handler(&table->print, UNLOCK);
-	ft_mutex_handler(&table->table_mute, UNLOCK);
+	ft_mutex_handler(mutex, LOCK);
+	*stop = val;
+	ft_mutex_handler(mutex, UNLOCK);
 }
 
 void	ft_thread_join(t_table *table)
@@ -71,11 +60,8 @@ void	ft_thread_join(t_table *table)
 	long	i;
 
 	i = 0;
-	while (i < table->nr_philo && !ft_get_bool(&table->table_mute, \
-			&table->stop_simulation))
+	while (i < table->nr_philo)
 	{
-		if (ft_get_bool(&table->table_mute, &table->stop_simulation))
-			break ;
 		if (pthread_join(table->philos[i].thread_id, NULL) != 0)
 		{
 			printf("Error: failed to join thread\n");

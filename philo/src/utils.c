@@ -23,6 +23,16 @@ int	ft_timez(long eat, long sleep, long die)
 	return (1);
 }
 
+static void	init_data(t_table *table, char **av)
+{
+	table->nr_philo = ft_atol(av[1]);
+	table->time_to_die = ft_atol(av[2]);
+	table->time_to_eat = ft_atol(av[3]);
+	table->time_to_sleep = ft_atol(av[4]);
+	table->philo_seated = 0;
+	table->start_time = 0;
+}
+
 void	init_table(char **av, t_table **table)
 {
 	*table = malloc(sizeof(t_table));
@@ -35,12 +45,7 @@ void	init_table(char **av, t_table **table)
 	ft_mutex_handler(&(*table)->table_mute, INIT);
 	ft_mutex_handler(&(*table)->print, INIT);
 	(*table)->stop_simulation = false;
-	(*table)->nr_philo = ft_atol(av[1]);
-	(*table)->time_to_die = ft_atol(av[2]);
-	(*table)->time_to_eat = ft_atol(av[3]);
-	(*table)->time_to_sleep = ft_atol(av[4]);
-	(*table)->philo_seated = 0;
-	(*table)->start_time = 0;
+	init_data(*table, av);
 	if (!ft_timez(ft_atol(av[2]), ft_atol(av[3]), ft_atol(av[4])))
 		return ;
 	if (av[5] == NULL)
@@ -49,20 +54,14 @@ void	init_table(char **av, t_table **table)
 		(*table)->nb_of_meals = ft_atol(av[5]);
 	if (ft_atol(av[1]) == 1)
 	{
-	    printf("the philo is dead\n");
-		return;
+		printf("the philo is dead\n");
+		return ;
 	}
 }
 
 void	ft_dead(t_philo *philo, long time)
 {
 	printf("%ld philo %d is dead\n", time, \
-		ft_get_int(&philo->philo_mute, &philo->philo_id));
-}
-
-void	ft_think(t_philo *philo, long time)
-{
-	printf("%ld %d is thinking\n", time, \
 		ft_get_int(&philo->philo_mute, &philo->philo_id));
 }
 
@@ -90,6 +89,7 @@ void	printf_mutex(t_printf_mutex status, t_philo *philo)
 		!ft_get_stop(&philo->table->table_mute, &philo->table->stop_simulation))
 		ft_think(philo, time);
 	if (DEAD == status)
-		ft_dead(philo, time + ft_get_long(&philo->table->table_mute, &philo->table->time_to_die));
+		ft_dead(philo, time + ft_get_long(&philo->table->table_mute, \
+			&philo->table->time_to_die));
 	ft_mutex_handler(&philo->table->print, UNLOCK);
 }
