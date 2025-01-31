@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../inc/philosophers.h"
+#include <unistd.h>
 
 void	ft_philo_thinks(t_philo *philo)
 {
@@ -60,4 +61,15 @@ void	ft_think(t_philo *philo, long time)
 {
 	printf("%ld %d is thinking\n", time, \
 		ft_get_int(&philo->philo_mute, &philo->philo_id));
+}
+
+void    print_one_dead(char **av)
+{
+    if (ft_atol(av[4]) > 0)
+    {
+        printf("0 1 take the fork\n");
+        while (usleep(ft_atol(av[2]) * 1000))
+            ;
+    }
+    printf("%s philo 1 is dead\n", av[2]);
 }
