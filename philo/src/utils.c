@@ -54,14 +54,14 @@ void	init_table(char **av, t_table **table)
 		(*table)->nb_of_meals = ft_atol(av[5]);
 	if (ft_atol(av[1]) == 1)
 	{
-	    print_one_dead(av);
+		print_one_dead(av);
 		return ;
 	}
 }
 
 void	ft_dead(t_philo *philo, long time)
 {
-	printf("%ld philo %d is dead\n", time, \
+	printf("%ld %d died\n", time, \
 		ft_get_int(&philo->philo_mute, &philo->philo_id));
 }
 
@@ -70,12 +70,10 @@ void	printf_mutex(t_printf_mutex status, t_philo *philo)
 	long	time;
 
 	time = get_current_time(philo->table);
-	if (philo->full)
-		return ;
 	ft_mutex_handler(&philo->table->print, LOCK);
 	if ((LEFT_FORK == status || RIGHT_FORK == status) && \
 		!ft_get_stop(&philo->table->table_mute, &philo->table->stop_simulation))
-		printf("%ld %d take the fork\n", time, \
+		printf("%ld %d has taken a fork\n", time, \
 			ft_get_int(&philo->philo_mute, &philo->philo_id));
 	if (EAT == status && \
 		!ft_get_stop(&philo->table->table_mute, &philo->table->stop_simulation))
@@ -89,7 +87,6 @@ void	printf_mutex(t_printf_mutex status, t_philo *philo)
 		!ft_get_stop(&philo->table->table_mute, &philo->table->stop_simulation))
 		ft_think(philo, time);
 	if (DEAD == status)
-		ft_dead(philo, time + ft_get_long(&philo->table->table_mute, \
-			&philo->table->time_to_die));
+		ft_dead(philo, time);
 	ft_mutex_handler(&philo->table->print, UNLOCK);
 }

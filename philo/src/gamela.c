@@ -17,15 +17,12 @@ bool	found_dead_philo(t_philo *philo)
 	long	t_die;
 	long	time;
 
-	if (all_full(philo))
-		return (true);
-	if (ft_get_long(&philo->table->table_mute, &philo->table->time_to_sleep) + \
-		ft_get_long(&philo->table->table_mute, &philo->table->time_to_eat) > \
-		ft_get_long(&philo->table->table_mute, &philo->table->time_to_die))
-		return (true);
+	//if (all_full(philo))
+	//	return (true);
 	time = get_current_time(philo->table) - \
 			(ft_get_long(&philo->philo_mute, &philo->last_meal_time));
 	t_die = ft_get_long(&philo->philo_mute, &philo->table->time_to_die);
+//	printf("time: %ld < %ld t_die\n", time, t_die);
 	if (time < t_die)
 		return (false);
 	return (true);
@@ -60,17 +57,17 @@ void	waiting_for_philos(t_table *table)
 
 bool	check_gamela(t_table *table, int i)
 {
+	if (all_full(table->philos))
+	{
+		ft_set_stop(&table->table_mute, &table->stop_simulation, \
+					true);
+		return (false);
+	}
 	if (found_dead_philo(table->philos + i))
 	{
 		ft_set_stop(&table->table_mute, &table->stop_simulation, \
 					true);
 		printf_mutex(DEAD, &table->philos[i]);
-		return (false);
-	}
-	if (all_full(table->philos))
-	{
-		ft_set_stop(&table->table_mute, &table->stop_simulation, \
-					true);
 		return (false);
 	}
 	return (true);
@@ -83,14 +80,14 @@ void	*monitor_routine(void *table1)
 
 	table = (t_table *)table1;
 	waiting_for_philos(table);
-	i = 0;
 	while (!ft_get_bool(&table->table_mute, &table->stop_simulation))
 	{
+		i = 0;
 		while (i < table->nr_philo && !ft_get_stop(&table->table_mute, \
 				&table->stop_simulation))
 		{
 			if (!check_gamela(table, i))
-				break ;
+				return (NULL);
 			i++;
 		}
 	}

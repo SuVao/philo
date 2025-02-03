@@ -73,7 +73,7 @@ int	check_args(char **av)
 
 bool	ft_check_philo_nr(t_table *table)
 {
-	if (table->nr_philo < 1)
+	if (table->nr_philo < 1 || table->nr_philo > 200)
 	{
 		printf("Invalid nunber of philos\n");
 		return (false);

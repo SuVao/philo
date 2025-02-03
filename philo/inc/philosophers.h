@@ -145,6 +145,6 @@ bool	check_av(char **av);
 bool	all_full(t_philo *philo);
 bool	check_gamela(t_table *table, int i);
 void	ft_think(t_philo *philo, long time);
-void    print_one_dead(char **av);
+void	print_one_dead(char **av);
 
 #endif
