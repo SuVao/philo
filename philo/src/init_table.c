@@ -21,6 +21,7 @@ t_philo	create_philo(t_philo *philos, long i, t_table *table)
 	philos[i].sync_phi = false;
 	philos[i].table = table;
 	philos[i].dead = false;
+	philos[i].is_eat = false;
 	philos[i].nb_philo_meals = 0;
 	philos[i].left_fork = &table->forks[(i + 1) % table->nr_philo];
 	philos[i].right_fork = &table->forks[i];

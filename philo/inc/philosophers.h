@@ -61,6 +61,7 @@ typedef struct s_philo
 	pthread_mutex_t	philo_mute;
 	bool			sync_phi;
 	bool			dead;
+	bool            is_eat;
 }					t_philo;
 
 typedef struct s_table

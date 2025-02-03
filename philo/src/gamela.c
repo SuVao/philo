@@ -17,12 +17,14 @@ bool	found_dead_philo(t_philo *philo)
 	long	t_die;
 	long	time;
 
-	//if (all_full(philo))
-	//	return (true);
-	time = get_current_time(philo->table) - \
-			(ft_get_long(&philo->philo_mute, &philo->last_meal_time));
+
+	if (ft_get_bool(&philo->philo_mute, &philo->is_eat))
+	    time = 0;
+	else
+	    time = get_current_time(philo->table) - \
+	        (ft_get_long(&philo->philo_mute, &philo->last_meal_time));
 	t_die = ft_get_long(&philo->philo_mute, &philo->table->time_to_die);
-//	printf("time: %ld < %ld t_die\n", time, t_die);
+//	printf("time: %ld < %ld t_die is_eating: %i\n", time, t_die, ft_get_bool(&philo->philo_mute, &philo->is_eat));
 	if (time < t_die)
 		return (false);
 	return (true);

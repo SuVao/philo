@@ -39,13 +39,15 @@ void	ft_eat_routine(t_philo *philo)
 	printf_mutex(LEFT_FORK, philo);
 	ft_mutex_handler(&philo->right_fork->fork, LOCK);
 	printf_mutex(RIGHT_FORK, philo);
-	time = get_current_time(philo->table);
+	ft_set_bool(&philo->philo_mute, &philo->is_eat, true);
 	printf_mutex(EAT, philo);
 	ft_usleep(ft_get_long(&philo->table->table_mute, \
 		&philo->table->time_to_eat), philo->table);
+	time = get_current_time(philo->table);
 	ft_set_long(&philo->philo_mute, &philo->last_meal_time, time);
 	ft_set_long(&philo->philo_mute, &philo->nb_philo_meals, \
 		ft_get_long(&philo->philo_mute, &philo->nb_philo_meals) + 1);
+	ft_set_bool(&philo->philo_mute, &philo->is_eat, false);
 	ft_mutex_handler(&philo->left_fork->fork, UNLOCK);
 	ft_mutex_handler(&philo->right_fork->fork, UNLOCK);
 	if (ft_get_long(&philo->table->table_mute, &philo->table->nb_of_meals) > 0 \
