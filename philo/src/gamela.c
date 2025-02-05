@@ -85,8 +85,7 @@ void	*monitor_routine(void *table1)
 	while (!ft_get_bool(&table->table_mute, &table->stop_simulation))
 	{
 		i = 0;
-		while (i < table->nr_philo && !ft_get_stop(&table->table_mute, \
-				&table->stop_simulation))
+		while (i < table->nr_philo)
 		{
 			if (!check_gamela(table, i))
 				return (NULL);
