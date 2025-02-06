@@ -25,10 +25,9 @@ void	ft_create_thread(t_table *table)
 			printf("Error: failed to create thread\n");
 			return ;
 		}
-		ft_set_bool(&table->philos[i].philo_mute, \
-			&table->philos[i].sync_phi, true);
 		i++;
 	}
+	ft_set_bool(&table->table_mute, &table->sync, true);
 	if (pthread_create(&table->monitor, NULL, &monitor_routine, table) != 0)
 	{
 		printf("Error: failed to create the monitor");

@@ -16,8 +16,6 @@
 void	mutex_threads(t_table *table, t_philo *philo)
 {
 	(void)philo;
-	table->shared_fork = 0;
-	table->shared_fork++;
 	ft_create_thread(table);
 	ft_thread_join(table);
 	ft_set_bool(&table->table_mute, &table->stop_simulation, true);
@@ -37,8 +35,10 @@ void	ft_mutex_handler(pthread_mutex_t *mutex, t_code code)
 
 void	ft_sync_threads(t_philo *philos)
 {
-	while (!ft_get_bool(&philos->philo_mute, &philos->sync_phi))
-		;
+	//while (!ft_get_bool(&philos->philo_mute, &philos->sync_phi))
+	//	;
+	while (!ft_get_bool(&philos->table->table_mute, &philos->table->sync))
+	   ;
 }
 
 void	ft_one_more_seated(pthread_mutex_t *mutex, long *philo_seated)
@@ -55,7 +55,7 @@ void	*dog_life(void *philo1)
 	philo = (t_philo *)philo1;
 	ft_sync_threads(philo);
 	ft_one_more_seated(&philo->table->table_mute, &philo->table->philo_seated);
-	ft_set_long(&philo->philo_mute, &philo->last_meal_time, \
+	ft_set_long(&philo->philo_mute, &philo->last_meal_time,
 				get_current_time(philo->table));
 	while (!ft_get_stop(&philo->table->table_mute, \
 						&philo->table->stop_simulation))
@@ -64,8 +64,7 @@ void	*dog_life(void *philo1)
 			return (NULL);
 		ft_eat_routine(philo);
 		printf_mutex(SLEEP, philo);
-		ft_usleep(ft_get_long(&philo->table->table_mute, \
-					&philo->table->time_to_sleep), philo->table);
+		ft_usleep(philo->table->time_to_sleep, philo->table);
 		ft_philo_thinks(philo);
 	}
 	return (NULL);

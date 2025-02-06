@@ -47,10 +47,10 @@ void	init_philo_opc(char **av)
 	init_table(av, &table);
 	if (!checks_table(table, av))
 		return ;
-	table->start_time = get_current_time(table);
 	puting_the_forks_on_the_table(table, &forks_table);
 	assigning(&table, &philo, &forks_table);
 	seating_the_gentlemans(table, &philo);
+	table->start_time = get_current_time(table);
 	mutex_threads(table, philo);
 	washing_dishes(table);
 }

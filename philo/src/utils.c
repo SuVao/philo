@@ -45,6 +45,7 @@ void	init_table(char **av, t_table **table)
 	ft_mutex_handler(&(*table)->table_mute, INIT);
 	ft_mutex_handler(&(*table)->print, INIT);
 	(*table)->stop_simulation = false;
+	(*table)->sync = false;
 	init_data(*table, av);
 	if (!ft_timez(ft_atol(av[2]), ft_atol(av[3]), ft_atol(av[4])))
 		return ;

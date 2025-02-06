@@ -23,12 +23,15 @@ t_philo	create_philo(t_philo *philos, long i, t_table *table)
 	philos[i].dead = false;
 	philos[i].is_eat = false;
 	philos[i].nb_philo_meals = 0;
-	philos[i].left_fork = &table->forks[(i + 1) % table->nr_philo];
-	philos[i].right_fork = &table->forks[i];
 	if (philos[i].philo_id % 2 == 0)
 	{
 		philos[i].left_fork = &table->forks[i];
 		philos[i].right_fork = &table->forks[(i + 1) % table->nr_philo];
+	}
+	else
+	{
+	   philos[i].left_fork = &table->forks[(i + 1) % table->nr_philo];
+	   philos[i].right_fork = &table->forks[i];
 	}
 	ft_mutex_handler(&philos[i].philo_mute, INIT);
 	return (philos[i]);
