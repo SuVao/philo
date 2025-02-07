@@ -50,9 +50,9 @@ typedef enum e_code
 typedef struct s_philo
 {
 	int				philo_id;
-	long			last_meal_time;
-	long			meal_count;
-	long			nb_philo_meals;
+	long    		last_meal_time;
+	int    			meal_count;
+	int    			nb_philo_meals;
 	bool			full;
 	t_fork			*left_fork;
 	t_fork			*right_fork;
@@ -60,7 +60,6 @@ typedef struct s_philo
 	t_table			*table;
 	pthread_mutex_t	philo_mute;
 	bool			sync_phi;
-	bool			dead;
 	bool            is_eat;
 }					t_philo;
 
@@ -74,9 +73,9 @@ typedef struct s_table
 	long			time_to_die;
 	long			time_to_eat;
 	long			time_to_sleep;
-	long			nr_philo;
-	long			nb_of_meals;
-	long			philo_seated;
+	int	            nr_philo;
+	int	            nb_of_meals;
+	int	            philo_seated;
 	t_fork			*forks;
 	t_philo			*philos;
 	int				shared_fork;
@@ -132,13 +131,14 @@ void	*monitor_routine(void *gamela);
 void	ft_set_bool(pthread_mutex_t *mutex, bool *des, bool val);
 bool	ft_get_bool( pthread_mutex_t *mutex, bool *val);
 long	ft_get_long(pthread_mutex_t *mutex, long *val);
-void	ft_set_long(pthread_mutex_t *mutex, long *des, long val);
+void	ft_set_int(pthread_mutex_t *mutex, int *des, int val);
 int		ft_get_int(pthread_mutex_t *mutex, int *val);
+void	ft_set_long(pthread_mutex_t *mutex, long *des, long val);
 
 void	ft_eat_routine(t_philo *philo);
 void	ft_philo_thinks(t_philo *philo);
-void	ft_one_more_seated(pthread_mutex_t *mutex, long *philo_seated);
-bool	all_philo_seats(pthread_mutex_t *mutex, long philos, long philo_nb);
+void	ft_one_more_seated(pthread_mutex_t *mutex, int *philo_seated);
+bool	all_philo_seats(pthread_mutex_t *mutex, int philos, int philo_nb);
 bool	found_dead_philo(t_philo *philo);
 void	ft_set_stop(pthread_mutex_t *mutex, bool *stop, bool val);
 bool	ft_get_stop(pthread_mutex_t *mutex, bool *stop);

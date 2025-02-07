@@ -20,7 +20,6 @@ t_philo	create_philo(t_philo *philos, long i, t_table *table)
 	philos[i].thread_id = i;
 	philos[i].sync_phi = false;
 	philos[i].table = table;
-	philos[i].dead = false;
 	philos[i].is_eat = false;
 	philos[i].nb_philo_meals = 0;
 	if (philos[i].philo_id % 2 == 0)
@@ -34,6 +33,7 @@ t_philo	create_philo(t_philo *philos, long i, t_table *table)
 	   philos[i].right_fork = &table->forks[i];
 	}
 	ft_mutex_handler(&philos[i].philo_mute, INIT);
+//	printf("Philosopher %ld initialized\n", i + 1);
 	return (philos[i]);
 }
 

@@ -50,7 +50,6 @@ void	init_philo_opc(char **av)
 	puting_the_forks_on_the_table(table, &forks_table);
 	assigning(&table, &philo, &forks_table);
 	seating_the_gentlemans(table, &philo);
-	table->start_time = get_current_time(table);
 	mutex_threads(table, philo);
 	washing_dishes(table);
 }
@@ -63,7 +62,14 @@ int	main(int ac, char **av)
 		return (1);
 	}
 	if (ac == 6 || ac == 5)
+	{
+	    if (av[5] && ft_atol(av[5]) <= 0)
+		{
+            printf("Error: number of meals must be greater than 0\n");
+            return (1);
+        }
 		init_philo_opc(av);
+	}
 	else
 	{
 		printf("Error: wrong number of arguments\n");

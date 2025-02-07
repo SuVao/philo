@@ -46,6 +46,13 @@ void	ft_set_long(pthread_mutex_t *mutex, long *des, long val)
 	ft_mutex_handler(mutex, UNLOCK);
 }
 
+void	ft_set_int(pthread_mutex_t *mutex, int *des, int val)
+{
+	ft_mutex_handler(mutex, LOCK);
+	*des = val;
+	ft_mutex_handler(mutex, UNLOCK);
+}
+
 int	ft_get_int(pthread_mutex_t *mutex, int *val)
 {
 	int	val_ret;

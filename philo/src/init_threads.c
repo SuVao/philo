@@ -14,7 +14,7 @@
 
 void	ft_create_thread(t_table *table)
 {
-	long	i;
+	int    i;
 
 	i = 0;
 	while (i < table->nr_philo)
@@ -27,6 +27,7 @@ void	ft_create_thread(t_table *table)
 		}
 		i++;
 	}
+	table->start_time = get_current_time(table);
 	ft_set_bool(&table->table_mute, &table->sync, true);
 	if (pthread_create(&table->monitor, NULL, &monitor_routine, table) != 0)
 	{
@@ -35,7 +36,7 @@ void	ft_create_thread(t_table *table)
 	}
 }
 
-bool	all_philo_seats(pthread_mutex_t *mutex, long philos, long philo_nr)
+bool	all_philo_seats(pthread_mutex_t *mutex, int philos, int philo_nr)
 {
 	bool	ola;
 
@@ -56,7 +57,7 @@ void	ft_set_stop(pthread_mutex_t *mutex, bool *stop, bool val)
 
 void	ft_thread_join(t_table *table)
 {
-	long	i;
+	int	i;
 
 	i = 0;
 	while (i < table->nr_philo)

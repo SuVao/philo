@@ -25,7 +25,7 @@ int	ft_timez(long eat, long sleep, long die)
 
 static void	init_data(t_table *table, char **av)
 {
-	table->nr_philo = ft_atol(av[1]);
+	table->nr_philo = (int)ft_atol(av[1]);
 	table->time_to_die = ft_atol(av[2]);
 	table->time_to_eat = ft_atol(av[3]);
 	table->time_to_sleep = ft_atol(av[4]);
@@ -50,7 +50,7 @@ void	init_table(char **av, t_table **table)
 	if (!ft_timez(ft_atol(av[2]), ft_atol(av[3]), ft_atol(av[4])))
 		return ;
 	if (av[5] == NULL)
-		(*table)->nb_of_meals = LLONG_MAX;
+		(*table)->nb_of_meals = INT_MAX;
 	else
 		(*table)->nb_of_meals = ft_atol(av[5]);
 	if (ft_atol(av[1]) == 1)
@@ -62,8 +62,7 @@ void	init_table(char **av, t_table **table)
 
 void	ft_dead(t_philo *philo, long time)
 {
-	printf("%ld %d died\n", time, \
-		ft_get_int(&philo->philo_mute, &philo->philo_id));
+	printf("%ld %d died\n", time, philo->philo_id);
 }
 
 void	printf_mutex(t_printf_mutex status, t_philo *philo)
@@ -74,16 +73,13 @@ void	printf_mutex(t_printf_mutex status, t_philo *philo)
 	ft_mutex_handler(&philo->table->print, LOCK);
 	if ((LEFT_FORK == status || RIGHT_FORK == status) && \
 		!ft_get_stop(&philo->table->table_mute, &philo->table->stop_simulation))
-		printf("%ld %d has taken a fork\n", time, \
-			ft_get_int(&philo->philo_mute, &philo->philo_id));
+		printf("%ld %d has taken a fork\n", time, philo->philo_id);
 	if (EAT == status && \
 		!ft_get_stop(&philo->table->table_mute, &philo->table->stop_simulation))
-		printf("%ld %d is eating\n", time, \
-				ft_get_int(&philo->philo_mute, &philo->philo_id));
+		printf("%ld %d is eating\n", time, philo->philo_id);
 	if (SLEEP == status && \
 		!ft_get_stop(&philo->table->table_mute, &philo->table->stop_simulation))
-		printf("%ld %d is sleeping\n", time, \
-			ft_get_int(&philo->philo_mute, &philo->philo_id));
+		printf("%ld %d is sleeping\n", time, philo->philo_id);
 	if (THINKING == status && \
 		!ft_get_stop(&philo->table->table_mute, &philo->table->stop_simulation))
 		ft_think(philo, time);
