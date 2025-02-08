@@ -6,7 +6,7 @@
 /*   By: pesilva- <pesilva-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 19:06:38 by pesilva-          #+#    #+#             */
-/*   Updated: 2025/01/26 10:17:28 by pesilva-         ###   ########.fr       */
+/*   Updated: 2025/02/08 16:27:29 by pesilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,9 @@ void	kickoff_the_clients(t_table *table)
 		free(table->philos);
 		table->philos = NULL;
 	}
+}
+
+void	ft_philo_thinks(t_philo *philo)
+{
+	printf_mutex(THINKING, philo);
 }

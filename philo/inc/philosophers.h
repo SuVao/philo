@@ -6,7 +6,7 @@
 /*   By: pesilva- <pesilva-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 19:22:33 by pesilva-          #+#    #+#             */
-/*   Updated: 2025/02/08 01:12:01 by pesilva-         ###   ########.fr       */
+/*   Updated: 2025/02/08 11:12:49 by pesilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ long	ft_get_long(pthread_mutex_t *mutex, long *val);
 void	ft_set_int(pthread_mutex_t *mutex, int *des, int val);
 int		ft_get_int(pthread_mutex_t *mutex, int *val);
 void	ft_set_long(pthread_mutex_t *mutex, long *des, long val);
+void	ft_philo_thinks(t_philo *philo);
 
 void	ft_eat_routine(t_philo *philo);
 void	ft_one_more_seated(pthread_mutex_t *mutex, int *philo_seated);
