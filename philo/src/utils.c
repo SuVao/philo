@@ -6,7 +6,7 @@
 /*   By: pesilva- <pesilva-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 19:10:32 by pesilva-          #+#    #+#             */
-/*   Updated: 2025/01/26 12:10:04 by pesilva-         ###   ########.fr       */
+/*   Updated: 2025/02/08 01:07:36 by pesilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,6 @@ void	init_table(char **av, t_table **table)
 	}
 }
 
-void	ft_dead(t_philo *philo, long time)
-{
-	printf("%ld %d died\n", time, philo->philo_id);
-}
-
 void	printf_mutex(t_printf_mutex status, t_philo *philo)
 {
 	long	time;
@@ -84,6 +79,16 @@ void	printf_mutex(t_printf_mutex status, t_philo *philo)
 		!ft_get_stop(&philo->table->table_mute, &philo->table->stop_simulation))
 		ft_think(philo, time);
 	if (DEAD == status)
-		ft_dead(philo, time);
+		printf("%ld %d died\n", time, philo->philo_id);
 	ft_mutex_handler(&philo->table->print, UNLOCK);
+}
+
+int	ft_get_int(pthread_mutex_t *mutex, int *val)
+{
+	int	val_ret;
+
+	ft_mutex_handler(mutex, LOCK);
+	val_ret = *val;
+	ft_mutex_handler(mutex, UNLOCK);
+	return (val_ret);
 }

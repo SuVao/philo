@@ -6,7 +6,7 @@
 /*   By: pesilva- <pesilva-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 19:06:31 by pesilva-          #+#    #+#             */
-/*   Updated: 2025/01/26 12:08:38 by pesilva-         ###   ########.fr       */
+/*   Updated: 2025/02/08 01:08:06 by pesilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,10 @@ bool	ft_check_philo_nr(t_table *table)
 		return (false);
 	}
 	return (true);
+}
+
+void	ft_think(t_philo *philo, long time)
+{
+	printf("%ld %d is thinking\n", time, \
+		ft_get_int(&philo->philo_mute, &philo->philo_id));
 }

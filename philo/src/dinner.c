@@ -6,12 +6,11 @@
 /*   By: pesilva- <pesilva-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 19:07:06 by pesilva-          #+#    #+#             */
-/*   Updated: 2025/01/26 10:25:55 by pesilva-         ###   ########.fr       */
+/*   Updated: 2025/02/08 01:03:25 by pesilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philosophers.h"
-#include <stdio.h>
 
 void	mutex_threads(t_table *table, t_philo *philo)
 {
@@ -35,10 +34,8 @@ void	ft_mutex_handler(pthread_mutex_t *mutex, t_code code)
 
 void	ft_sync_threads(t_philo *philos)
 {
-	//while (!ft_get_bool(&philos->philo_mute, &philos->sync_phi))
-	//	;
 	while (!ft_get_bool(&philos->table->table_mute, &philos->table->sync))
-	   ;
+		;
 }
 
 void	ft_one_more_seated(pthread_mutex_t *mutex, int *philo_seated)
@@ -55,8 +52,8 @@ void	*dog_life(void *philo1)
 	philo = (t_philo *)philo1;
 	ft_sync_threads(philo);
 	ft_one_more_seated(&philo->table->table_mute, &philo->table->philo_seated);
-	ft_set_long(&philo->philo_mute, &philo->last_meal_time,
-				get_current_time(philo->table));
+	ft_set_long(&philo->philo_mute, &philo->last_meal_time, \
+		get_current_time(philo->table));
 	while (!ft_get_stop(&philo->table->table_mute, \
 						&philo->table->stop_simulation))
 	{

@@ -6,7 +6,7 @@
 /*   By: pesilva- <pesilva-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 19:17:15 by pesilva-          #+#    #+#             */
-/*   Updated: 2025/01/26 10:28:20 by pesilva-         ###   ########.fr       */
+/*   Updated: 2025/02/08 01:06:29 by pesilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_create_thread(t_table *table)
 {
-	int    i;
+	int	i;
 
 	i = 0;
 	while (i < table->nr_philo)

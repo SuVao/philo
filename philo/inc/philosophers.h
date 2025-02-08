@@ -6,7 +6,7 @@
 /*   By: pesilva- <pesilva-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 19:22:33 by pesilva-          #+#    #+#             */
-/*   Updated: 2025/01/26 10:29:00 by pesilva-         ###   ########.fr       */
+/*   Updated: 2025/02/08 01:12:01 by pesilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ typedef enum e_code
 typedef struct s_philo
 {
 	int				philo_id;
-	long    		last_meal_time;
-	int    			meal_count;
-	int    			nb_philo_meals;
+	long			last_meal_time;
+	int				meal_count;
+	int				nb_philo_meals;
 	bool			full;
 	t_fork			*left_fork;
 	t_fork			*right_fork;
@@ -60,7 +60,7 @@ typedef struct s_philo
 	t_table			*table;
 	pthread_mutex_t	philo_mute;
 	bool			sync_phi;
-	bool            is_eat;
+	bool			is_eat;
 }					t_philo;
 
 typedef struct s_table
@@ -73,9 +73,9 @@ typedef struct s_table
 	long			time_to_die;
 	long			time_to_eat;
 	long			time_to_sleep;
-	int	            nr_philo;
-	int	            nb_of_meals;
-	int	            philo_seated;
+	int				nr_philo;
+	int				nb_of_meals;
+	int				philo_seated;
 	t_fork			*forks;
 	t_philo			*philos;
 	int				shared_fork;
@@ -84,15 +84,11 @@ typedef struct s_table
 
 //init_threads
 void	ft_create_thread(t_table *table);
-void	ft_lock_threads(t_table *table);
-void	ft_unlock_threads(t_table *table);
 void	ft_thread_join(t_table *table);
 
 //dinner
 void	*dog_life(void *philo1);
 void	mutex_threads(t_table *table, t_philo *philo);
-void	ft_lock_fork(long i, t_table *table);
-void	ft_unlock_fork(long i, t_table *table);
 void	ft_sync_threads(t_philo *philos);
 void	ft_mutex_handler(pthread_mutex_t *mutex, t_code code);
 
@@ -120,7 +116,7 @@ void	printf_mutex(t_printf_mutex status, t_philo *philo);
 
 //init_table
 t_philo	create_philo(t_philo *philos, long i, t_table *table);
-t_fork	create_forks(t_fork *forks_table, long i, t_table *table);
+t_fork	create_forks(t_fork *forks_table, long i);
 void	puting_the_forks_on_the_table(t_table *table, t_fork **forks_table);
 void	seating_the_gentlemans(t_table *table, t_philo **philo);
 
@@ -136,7 +132,6 @@ int		ft_get_int(pthread_mutex_t *mutex, int *val);
 void	ft_set_long(pthread_mutex_t *mutex, long *des, long val);
 
 void	ft_eat_routine(t_philo *philo);
-void	ft_philo_thinks(t_philo *philo);
 void	ft_one_more_seated(pthread_mutex_t *mutex, int *philo_seated);
 bool	all_philo_seats(pthread_mutex_t *mutex, int philos, int philo_nb);
 bool	found_dead_philo(t_philo *philo);

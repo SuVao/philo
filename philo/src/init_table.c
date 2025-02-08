@@ -6,7 +6,7 @@
 /*   By: pesilva- <pesilva-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 10:19:37 by pesilva-          #+#    #+#             */
-/*   Updated: 2025/01/26 10:20:05 by pesilva-         ###   ########.fr       */
+/*   Updated: 2025/02/08 01:10:05 by pesilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,15 @@ t_philo	create_philo(t_philo *philos, long i, t_table *table)
 	}
 	else
 	{
-	   philos[i].left_fork = &table->forks[(i + 1) % table->nr_philo];
-	   philos[i].right_fork = &table->forks[i];
+		philos[i].left_fork = &table->forks[(i + 1) % table->nr_philo];
+		philos[i].right_fork = &table->forks[i];
 	}
 	ft_mutex_handler(&philos[i].philo_mute, INIT);
-//	printf("Philosopher %ld initialized\n", i + 1);
 	return (philos[i]);
 }
 
-t_fork	create_forks(t_fork *forks_table, long i, t_table *table)
+t_fork	create_forks(t_fork *forks_table, long i)
 {
-	(void)table;
 	forks_table[i].fork_id = i;
 	ft_mutex_handler(&forks_table[i].fork, INIT);
 	return (forks_table[i]);
@@ -58,7 +56,7 @@ void	puting_the_forks_on_the_table(t_table *table, t_fork **forks_table)
 	i = 0;
 	while (i < table->nr_philo)
 	{
-		(*forks_table)[i] = create_forks(*forks_table, i, table);
+		(*forks_table)[i] = create_forks(*forks_table, i);
 		i++;
 	}
 	table->forks = *forks_table;

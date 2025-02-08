@@ -6,7 +6,7 @@
 /*   By: pesilva- <pesilva-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 10:22:34 by pesilva-          #+#    #+#             */
-/*   Updated: 2025/01/26 10:22:35 by pesilva-         ###   ########.fr       */
+/*   Updated: 2025/02/08 01:07:51 by pesilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,4 @@ void	ft_set_int(pthread_mutex_t *mutex, int *des, int val)
 	ft_mutex_handler(mutex, LOCK);
 	*des = val;
 	ft_mutex_handler(mutex, UNLOCK);
-}
-
-int	ft_get_int(pthread_mutex_t *mutex, int *val)
-{
-	int	val_ret;
-
-	ft_mutex_handler(mutex, LOCK);
-	val_ret = *val;
-	ft_mutex_handler(mutex, UNLOCK);
-	return (val_ret);
 }

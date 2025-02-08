@@ -6,7 +6,7 @@
 /*   By: pesilva- <pesilva-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 19:07:54 by pesilva-          #+#    #+#             */
-/*   Updated: 2025/01/26 10:18:53 by pesilva-         ###   ########.fr       */
+/*   Updated: 2025/02/08 00:58:06 by pesilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,13 @@ bool	found_dead_philo(t_philo *philo)
 	long	time;
 
 	if (ft_get_bool(&philo->philo_mute, &philo->full))
-	   return (false);
+		return (false);
 	if (ft_get_bool(&philo->philo_mute, &philo->is_eat))
-	    time = 0;
+		time = 0;
 	else
-	    time = get_current_time(philo->table) - \
-	        (ft_get_long(&philo->philo_mute, &philo->last_meal_time));
+		time = get_current_time(philo->table) - \
+			(ft_get_long(&philo->philo_mute, &philo->last_meal_time));
 	t_die = philo->table->time_to_die;
-//	printf("time: %ld < %ld t_die is_eating: %i\n", time, t_die, ft_get_bool(&philo->philo_mute, &philo->is_eat));
 	if (time < t_die)
 		return (false);
 	return (true);
@@ -39,7 +38,7 @@ bool	all_full(t_philo *philo)
 	while (i < philo->table->nr_philo)
 	{
 		if (ft_get_int(&philo[i].philo_mute, &philo[i].nb_philo_meals) != \
-		    philo->table->nb_of_meals)
+			philo->table->nb_of_meals)
 			return (false);
 		else
 		{
@@ -53,7 +52,8 @@ bool	all_full(t_philo *philo)
 void	waiting_for_philos(t_table *table)
 {
 	while (!all_philo_seats(&table->table_mute, \
-			ft_get_int(&table->table_mute, &table->philo_seated), table->nr_philo))
+			ft_get_int(&table->table_mute, &table->philo_seated), \
+			table->nr_philo))
 		;
 }
 
@@ -74,8 +74,6 @@ bool	check_gamela(t_table *table, int i)
 	}
 	return (true);
 }
-
-//o filosofo morre quando esta full e tem nr of meals
 
 void	*monitor_routine(void *table1)
 {

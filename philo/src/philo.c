@@ -6,7 +6,7 @@
 /*   By: pesilva- <pesilva-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 19:04:50 by pesilva-          #+#    #+#             */
-/*   Updated: 2025/01/26 16:15:14 by pesilva-         ###   ########.fr       */
+/*   Updated: 2025/02/08 00:58:30 by pesilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,11 @@ int	main(int ac, char **av)
 	}
 	if (ac == 6 || ac == 5)
 	{
-	    if (av[5] && ft_atol(av[5]) <= 0)
+		if (av[5] && ft_atol(av[5]) <= 0)
 		{
-            printf("Error: number of meals must be greater than 0\n");
-            return (1);
-        }
+			printf("Error: number of meals must be greater than 0\n");
+			return (1);
+		}
 		init_philo_opc(av);
 	}
 	else
