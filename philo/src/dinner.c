@@ -50,8 +50,8 @@ void	*dog_life(void *philo1)
 	t_philo	*philo;
 
 	philo = (t_philo *)philo1;
-	ft_sync_threads(philo);
 	ft_one_more_seated(&philo->table->table_mute, &philo->table->philo_seated);
+	ft_sync_threads(philo);
 	ft_set_long(&philo->philo_mute, &philo->last_meal_time, \
 		get_current_time(philo->table));
 	while (!ft_get_stop(&philo->table->table_mute, \
