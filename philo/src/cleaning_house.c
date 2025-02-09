@@ -42,4 +42,14 @@ void	kickoff_the_clients(t_table *table)
 void	ft_philo_thinks(t_philo *philo)
 {
 	printf_mutex(THINKING, philo);
+	if(philo->table->nr_philo % 2 == 0)
+	{
+	    if (philo->table->time_to_eat > philo->table->time_to_sleep)
+	       usleep((philo->table->time_to_eat - philo->table->time_to_sleep) *1000);
+	}
+	else
+    {
+        if (philo->table->time_to_eat * 2 > philo->table->time_to_sleep)
+           usleep((philo->table->time_to_eat * 2 - philo->table->time_to_sleep) *1000);
+    }
 }

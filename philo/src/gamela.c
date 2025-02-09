@@ -19,14 +19,13 @@ bool	found_dead_philo(t_philo *philo)
 
 	if (ft_get_bool(&philo->philo_mute, &philo->full))
 		return (false);
-	if (ft_get_bool(&philo->philo_mute, &philo->is_eat))
-		time = 0;
-	else
-		time = get_current_time(philo->table) - \
+	time = get_current_time(philo->table) - \
 			(ft_get_long(&philo->philo_mute, &philo->last_meal_time));
 	t_die = philo->table->time_to_die;
 	if (time < t_die)
+	{
 		return (false);
+	}
 	return (true);
 }
 

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../inc/philosophers.h"
+#include <unistd.h>
 
 void	mutex_threads(t_table *table, t_philo *philo)
 {
@@ -50,10 +51,14 @@ void	*dog_life(void *philo1)
 	t_philo	*philo;
 
 	philo = (t_philo *)philo1;
-	ft_one_more_seated(&philo->table->table_mute, &philo->table->philo_seated);
 	ft_sync_threads(philo);
+	ft_one_more_seated(&philo->table->table_mute, &philo->table->philo_seated);
 	ft_set_long(&philo->philo_mute, &philo->last_meal_time, \
 		get_current_time(philo->table));
+	if (philo->table->nr_philo % 2 == 0 && philo->philo_id % 2 == 1)
+	   ft_usleep(philo->table->time_to_eat, philo->table);
+	else if (philo->table->nr_philo % 2 == 1 && philo->philo_id % 2 == 0)
+        ft_usleep(philo->table->time_to_eat, philo->table);
 	while (!ft_get_stop(&philo->table->table_mute, \
 						&philo->table->stop_simulation))
 	{

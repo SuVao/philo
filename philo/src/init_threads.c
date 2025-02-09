@@ -27,13 +27,14 @@ void	ft_create_thread(t_table *table)
 		}
 		i++;
 	}
-	table->start_time = get_current_time(table);
-	ft_set_bool(&table->table_mute, &table->sync, true);
 	if (pthread_create(&table->monitor, NULL, &monitor_routine, table) != 0)
 	{
 		printf("Error: failed to create the monitor");
 		return ;
 	}
+	table->start_time = get_current_time(table);
+	ft_set_bool(&table->table_mute, &table->sync, true);
+
 }
 
 bool	all_philo_seats(pthread_mutex_t *mutex, int philos, int philo_nr)
