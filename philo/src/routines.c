@@ -35,6 +35,11 @@ void	ft_eat_routine(t_philo *philo)
 
 	ft_mutex_handler(&philo->left_fork->fork, LOCK);
 	printf_mutex(LEFT_FORK, philo);
+	if (philo->table->nr_philo == 1)
+	{
+	    ft_mutex_handler(&philo->left_fork->fork, UNLOCK);
+		return ;
+	}
 	ft_mutex_handler(&philo->right_fork->fork, LOCK);
 	printf_mutex(RIGHT_FORK, philo);
 	ft_set_bool(&philo->philo_mute, &philo->is_eat, true);

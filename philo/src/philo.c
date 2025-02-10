@@ -14,8 +14,9 @@
 
 static bool	checks_table(t_table *table, char **av)
 {
-	if (!ft_check_philo_nr(table) || !ft_check_time(table) || \
-		ft_atol(av[1]) == 1 || !ft_timez(table->time_to_die, \
+    (void)av;
+   	if (!ft_check_philo_nr(table) || !ft_check_time(table) || \
+	    !ft_timez(table->time_to_die, \
 		table->time_to_sleep, table->time_to_eat))
 	{
 		free(table);

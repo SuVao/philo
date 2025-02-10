@@ -63,6 +63,11 @@ void	*dog_life(void *philo1)
 						&philo->table->stop_simulation))
 	{
 		ft_eat_routine(philo);
+		if (philo->table->nr_philo == 1)
+		{
+		    ft_usleep(philo->table->time_to_die, philo->table);
+			return (NULL);
+		}
 		if (ft_get_bool(&philo->philo_mute, &philo->full))
 			return (NULL);
 		printf_mutex(SLEEP, philo);

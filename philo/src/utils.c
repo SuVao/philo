@@ -53,11 +53,6 @@ void	init_table(char **av, t_table **table)
 		(*table)->nb_of_meals = INT_MAX;
 	else
 		(*table)->nb_of_meals = ft_atol(av[5]);
-	if (ft_atol(av[1]) == 1)
-	{
-		print_one_dead(av);
-		return ;
-	}
 }
 
 void	printf_mutex(t_printf_mutex status, t_philo *philo)

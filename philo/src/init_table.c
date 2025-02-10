@@ -24,13 +24,11 @@ t_philo	create_philo(t_philo *philos, long i, t_table *table)
 	philos[i].nb_philo_meals = 0;
 	if (i != 0)
 	{
-	  //  printf("philo[%ld]: left fork: %ld right fork: %ld\n", i, i, (i + 1) % table->nr_philo);
 		philos[i].left_fork = &table->forks[i];
 		philos[i].right_fork = &table->forks[(i + 1) % table->nr_philo];
 	}
 	else
 	{
-	//    printf("philo[%ld]: left fork: %ld right fork: %ld\n", i, i, (i + 1) % table->nr_philo);
 		philos[i].left_fork = &table->forks[(i + 1) % table->nr_philo];
 		philos[i].right_fork = &table->forks[i];
 	}
